@@ -5,13 +5,13 @@ import {
   TextStyle,
 } from "react-native";
 
-interface Props extends RNTextProps {
+interface TextProps extends RNTextProps {
   preset?: TextVariants;
   weight?: FontWeight;
   italic?: boolean;
 }
 
-export const Text: React.FC<Props> = ({
+export const Text: React.FC<TextProps> = ({
   preset = "paragraphMedium",
   weight = "regular",
   italic = false,
