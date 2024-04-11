@@ -29,7 +29,7 @@ export const Button: React.FC<ButtonProps> = ({
         <Text
           preset={"paragraphMedium"}
           weight={"bold"}
-          style={{ color: "white" }}
+          color={"primaryContrast"}
         >
           {title}
         </Text>
