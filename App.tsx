@@ -15,9 +15,9 @@ function App(): React.JSX.Element {
             NubbleApp
           </Text>
 
-          <Button title={"Botão teste"} marginVertical={"s8"} />
-
-          <Button title={"Segundo botão teste"} loading />
+          <Button title={"Primary"} mt={"s8"} />
+          <Button title={"Outline"} mt={"s8"} preset={"outline"} />
+          <Button title={"Segundo botão teste"} loading mt={"s8"} />
         </Box>
       </SafeAreaView>
     </ThemeProvider>
