@@ -17,7 +17,22 @@ function App(): React.JSX.Element {
 
           <Button title={"Primary"} mt={"s8"} />
           <Button title={"Outline"} mt={"s8"} preset={"outline"} />
-          <Button title={"Segundo botão teste"} loading mt={"s8"} />
+
+          <Button title={"Loading Primary"} loading mt={"s8"} />
+          <Button
+            title={"Loading Outline"}
+            loading
+            mt={"s8"}
+            preset={"outline"}
+          />
+
+          <Button title={"Disabled Primary"} disabled mt={"s8"} />
+          <Button
+            title={"Disabled Outline"}
+            mt={"s8"}
+            preset={"outline"}
+            disabled
+          />
         </Box>
       </SafeAreaView>
     </ThemeProvider>

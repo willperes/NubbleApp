@@ -1,25 +1,28 @@
 import React from "react";
-import { ActivityIndicator, TouchableOpacity } from "react-native";
 import { Text } from "../Text/Text";
 import { TouchableOpacityBox, TouchableOpacityBoxProps } from "../Box/Box";
 import { ButtonPreset, buttonPresets } from "./buttonPresets";
+import { ActivityIndicator } from "../ActivityIndicator/ActivityIndicator";
 
 interface ButtonProps extends TouchableOpacityBoxProps {
   title: string;
   loading?: boolean;
+  disabled?: boolean;
   preset?: ButtonPreset;
 }
 
 export const Button: React.FC<ButtonProps> = ({
   title,
   loading = false,
+  disabled = false,
   preset = "primary",
   ...touchableOpacityBoxProps
 }) => {
-  const buttonPreset = buttonPresets[preset];
+  const buttonPreset = buttonPresets[preset][disabled ? "disabled" : "default"];
 
   return (
     <TouchableOpacityBox
+      disabled={disabled || loading}
       height={50}
       alignItems={"center"}
       justifyContent={"center"}
@@ -29,7 +32,7 @@ export const Button: React.FC<ButtonProps> = ({
       {...touchableOpacityBoxProps}
     >
       {loading ? (
-        <ActivityIndicator />
+        <ActivityIndicator color={buttonPreset.content} />
       ) : (
         <Text
           preset={"paragraphMedium"}
