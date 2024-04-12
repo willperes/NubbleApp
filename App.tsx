@@ -5,6 +5,7 @@ import { Button } from "./src/components/Button/Button";
 import { ThemeProvider } from "@shopify/restyle";
 import { theme } from "./src/theme/theme";
 import { Box } from "./src/components/Box/Box";
+import { Icon } from "./src/components/Icon/Icon";
 
 function App(): React.JSX.Element {
   return (
@@ -33,6 +34,9 @@ function App(): React.JSX.Element {
             preset={"outline"}
             disabled
           />
+
+          <Icon name={"eyeOn"} />
+          <Icon name={"eyeOff"} />
         </Box>
       </SafeAreaView>
     </ThemeProvider>
