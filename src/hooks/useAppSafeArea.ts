@@ -7,5 +7,6 @@ export function useAppSafeArea() {
 
     return {
         top: Math.max(top, spacing.s20),
+        bottom: Math.max(bottom, spacing.s20),
     }
 }

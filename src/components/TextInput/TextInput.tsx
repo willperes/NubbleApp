@@ -9,7 +9,7 @@ import { $fontFamily, $fontSizes, Text } from "../Text/Text";
 import { Box, BoxProps } from "../Box/Box";
 import { useAppTheme } from "../../hooks/useAppTheme";
 
-interface TextInputProps extends RNTextInputProps {
+export interface TextInputProps extends RNTextInputProps {
     label: string;
     errorMessage?: string;
     TrailingComponent?: React.ReactElement;
@@ -54,9 +54,9 @@ export function TextInput({
                         style={$textInput}
                         {...rnTextInputProps}
                     />
-                    {TrailingComponent ? (
+                    {TrailingComponent && (
                         <Box ml={"s16"}>{TrailingComponent}</Box>
-                    ) : null}
+                    )}
                 </Box>
                 {errorMessage ? (
                     <Text

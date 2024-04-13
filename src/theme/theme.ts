@@ -25,7 +25,7 @@ export const theme = createTheme({
         primary: palette.greenPrimary,
         primaryContrast: palette.grayWhite,
 
-        backgroundColor: palette.grayWhite,
+        background: palette.grayWhite,
         backgroundContrast: palette.grayBlack,
 
         error: palette.redError,

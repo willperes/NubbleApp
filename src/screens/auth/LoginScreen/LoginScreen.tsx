@@ -1,15 +1,13 @@
 import React from "react";
-import { SafeAreaView } from "react-native";
-import { Box } from "../../../components/Box/Box";
-import { Icon } from "../../../components/Icon/Icon";
 import { Text } from "../../../components/Text/Text";
 import { TextInput } from "../../../components/TextInput/TextInput";
 import { Button } from "../../../components/Button/Button";
 import { Screen } from "../../../components/Screen/Screen";
+import { PasswordInput } from "../../../components/PasswordInput/PasswordInput";
 
 export function LoginScreen() {
     return (
-        <Screen>
+        <Screen scrollable>
             <Text preset={"headingLarge"} mb={"s8"}>
                 Olá!
             </Text>
@@ -23,11 +21,9 @@ export function LoginScreen() {
                 boxProps={{ mb: "s20" }}
             />
 
-            <TextInput
+            <PasswordInput
                 label={"Senha"}
                 placeholder={"Digite sua senha"}
-                errorMessage={"Ocorreu um erro"}
-                TrailingComponent={<Icon color={"gray2"} name={"eyeOn"} />}
                 boxProps={{ mb: "s10" }}
             />
 
