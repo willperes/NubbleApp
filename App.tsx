@@ -1,46 +1,59 @@
 import React from "react";
 import { SafeAreaView } from "react-native";
 import { Text } from "./src/components/Text/Text";
-import { Button } from "./src/components/Button/Button";
 import { ThemeProvider } from "@shopify/restyle";
 import { theme } from "./src/theme/theme";
 import { Box } from "./src/components/Box/Box";
+import { Button } from "./src/components/Button/Button";
+import { TextInput } from "./src/components/TextInput/TextInput";
 import { Icon } from "./src/components/Icon/Icon";
 
 function App(): React.JSX.Element {
-  return (
-    <ThemeProvider theme={theme}>
-      <SafeAreaView style={{ flex: 1 }}>
-        <Box p={"s20"}>
-          <Text preset={"headingLarge"} weight={"semiBold"}>
-            NubbleApp
-          </Text>
+    return (
+        <ThemeProvider theme={theme}>
+            <SafeAreaView style={{ flex: 1 }}>
+                <Box paddingHorizontal={"s24"}>
+                    <Text preset={"headingLarge"} mb={"s8"}>
+                        Olá!
+                    </Text>
+                    <Text preset={"paragraphLarge"} mb={"s40"}>
+                        Digite seu e-mail e senha para entrar
+                    </Text>
 
-          <Button title={"Primary"} mt={"s8"} />
-          <Button title={"Outline"} mt={"s8"} preset={"outline"} />
+                    <TextInput
+                        label={"E-mail"}
+                        placeholder={"Digite seu e-mail"}
+                        boxProps={{ mb: "s20" }}
+                    />
 
-          <Button title={"Loading Primary"} loading mt={"s8"} />
-          <Button
-            title={"Loading Outline"}
-            loading
-            mt={"s8"}
-            preset={"outline"}
-          />
+                    <TextInput
+                        label={"Senha"}
+                        placeholder={"Digite sua senha"}
+                        errorMessage={"Ocorreu um erro"}
+                        TrailingComponent={
+                            <Icon color={"gray2"} name={"eyeOn"} />
+                        }
+                        boxProps={{ mb: "s10" }}
+                    />
 
-          <Button title={"Disabled Primary"} disabled mt={"s8"} />
-          <Button
-            title={"Disabled Outline"}
-            mt={"s8"}
-            preset={"outline"}
-            disabled
-          />
+                    <Text
+                        preset={"paragraphSmall"}
+                        weight={"bold"}
+                        color={"primary"}
+                    >
+                        Esqueci minha senha
+                    </Text>
 
-          <Icon name={"eyeOn"} />
-          <Icon name={"eyeOff"} />
-        </Box>
-      </SafeAreaView>
-    </ThemeProvider>
-  );
+                    <Button preset={"primary"} title={"Entrar"} mt={"s48"} />
+                    <Button
+                        preset={"outline"}
+                        title={"Criar uma conta"}
+                        mt={"s12"}
+                    />
+                </Box>
+            </SafeAreaView>
+        </ThemeProvider>
+    );
 }
 
 export default App;
