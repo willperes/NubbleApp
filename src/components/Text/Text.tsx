@@ -12,26 +12,26 @@ interface TextProps extends SRTextProps {
     italic?: boolean;
 }
 
-export const Text: React.FC<TextProps> = ({
+export function Text({
     preset = "paragraphMedium",
     weight = "regular",
     italic = false,
     children,
     style,
-    ...sRTextProps
-}) => {
+    ...srTextProps
+}: TextProps) {
     const fontFamily = getFontFamily(preset, weight, italic);
 
     return (
         <SRText
             color={"backgroundContrast"}
             style={[$fontSizes[preset], { fontFamily }, style]}
-            {...sRTextProps}
+            {...srTextProps}
         >
             {children}
         </SRText>
     );
-};
+}
 
 type TextVariants =
     | "headingLarge"
