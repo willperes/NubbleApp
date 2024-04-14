@@ -1,5 +1,5 @@
 import React from "react";
-import { Box } from "../Box/Box";
+import { Box, TouchableOpacityBox } from "../Box/Box";
 import { useAppSafeArea } from "../../hooks/useAppSafeArea";
 import { Icon } from "../Icon/Icon";
 import { Text } from "../Text/Text";
@@ -9,6 +9,7 @@ import {
     ViewContainer,
 } from "./components/ScreenContainer";
 import { useAppTheme } from "../../hooks/useAppTheme";
+import { useNavigation } from "@react-navigation/native";
 
 interface ScreenProps {
     children: React.ReactElement | React.ReactElement[];
@@ -23,6 +24,7 @@ export function Screen({
 }: ScreenProps) {
     const { top, bottom } = useAppSafeArea();
     const { colors } = useAppTheme();
+    const navigation = useNavigation();
 
     const Container = scrollable ? ScrollViewContainer : ViewContainer;
     return (
@@ -39,10 +41,11 @@ export function Screen({
                     }}
                 >
                     {canGoBack ? (
-                        <Box
+                        <TouchableOpacityBox
                             mb={"s24"}
                             flexDirection={"row"}
                             alignItems={"center"}
+                            onPress={navigation.goBack}
                         >
                             <Icon name={"arrowLeft"} color={"primary"} />
                             <Text
@@ -52,7 +55,7 @@ export function Screen({
                             >
                                 Voltar
                             </Text>
-                        </Box>
+                        </TouchableOpacityBox>
                     ) : null}
                     {children}
                 </Box>

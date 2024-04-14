@@ -4,8 +4,16 @@ import { TextInput } from "../../../components/TextInput/TextInput";
 import { Button } from "../../../components/Button/Button";
 import { Screen } from "../../../components/Screen/Screen";
 import { PasswordInput } from "../../../components/PasswordInput/PasswordInput";
+import { NativeStackScreenProps } from "react-native-screens/lib/typescript/native-stack/types";
+import { RootStackParamList } from "../../../routes/Routes";
 
-export function LoginScreen() {
+type ScreenProps = NativeStackScreenProps<RootStackParamList, "LoginScreen">;
+
+export function LoginScreen({ navigation }: ScreenProps) {
+    function navigateToSignUpScreen(): void {
+        navigation.navigate("SignUpScreen");
+    }
+
     return (
         <Screen scrollable>
             <Text preset={"headingLarge"} mb={"s8"}>
@@ -32,7 +40,12 @@ export function LoginScreen() {
             </Text>
 
             <Button preset={"primary"} title={"Entrar"} mt={"s48"} />
-            <Button preset={"outline"} title={"Criar uma conta"} mt={"s12"} />
+            <Button
+                preset={"outline"}
+                title={"Criar uma conta"}
+                mt={"s12"}
+                onPress={navigateToSignUpScreen}
+            />
         </Screen>
     );
 }
