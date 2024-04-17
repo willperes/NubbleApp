@@ -1,11 +1,22 @@
 import React from "react";
 import { Screen } from "../../../components/Screen/Screen";
 import { Text } from "../../../components/Text/Text";
-import { TextInput } from "../../../components/TextInput/TextInput";
 import { Button } from "../../../components/Button/Button";
 import { useResetNavigationSuccess } from "../../../hooks/useResetNavigationSuccess";
+import { FormTextInput } from "../../../components/Form/FormTextInput/FormTextInput";
+import { useForm } from "react-hook-form";
+import {
+    ForgotPasswordSchema,
+    forgotPasswordSchema,
+} from "./forgotPasswordSchema";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 export function ForgotPasswordScreen() {
+    const { control, formState, handleSubmit } = useForm<ForgotPasswordSchema>({
+        resolver: zodResolver(forgotPasswordSchema),
+        mode: "onChange",
+    });
+
     const { reset } = useResetNavigationSuccess();
 
     function submitForm(): void {
@@ -31,13 +42,20 @@ export function ForgotPasswordScreen() {
                 senha
             </Text>
 
-            <TextInput
+            <FormTextInput
+                control={control}
+                name={"email"}
                 boxProps={{ mt: "s32" }}
                 label={"E-mail"}
                 placeholder={"Digite seu e-mail"}
             />
 
-            <Button mt={"s48"} title={"Recuperar senha"} onPress={submitForm} />
+            <Button
+                disabled={!formState.isValid}
+                mt={"s48"}
+                title={"Recuperar senha"}
+                onPress={handleSubmit(submitForm)}
+            />
         </Screen>
     );
 }
