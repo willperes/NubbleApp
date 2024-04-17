@@ -24,8 +24,8 @@ export function LoginScreen({ navigation }: ScreenProps) {
         mode: "onChange",
     });
 
-    function submitForm(values: LoginForm): void {
-        console.log("values", values);
+    function submitForm(formValues: LoginForm): void {
+        console.log("formValues", formValues);
     }
 
     function navigateToSignUpScreen(): void {
