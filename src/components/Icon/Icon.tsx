@@ -1,3 +1,7 @@
+import { useAppTheme } from "@hooks";
+import { ThemeColor } from "@theme";
+import { Pressable } from "react-native";
+
 import { ArrowLeftIcon } from "../../assets/icons/ArrowLeftIcon";
 import { ArrowRightIcon } from "../../assets/icons/ArrowRightIcon";
 import { BellIcon } from "../../assets/icons/BellIcon";
@@ -22,14 +26,11 @@ import { HomeIcon } from "../../assets/icons/HomeIcon";
 import { MessageIcon } from "../../assets/icons/MessageIcon";
 import { MessageRoundIcon } from "../../assets/icons/MessageRoundIcon";
 import { NewPostIcon } from "../../assets/icons/NewPostIcon";
-import { Pressable } from "react-native";
 import { ProfileFillIcon } from "../../assets/icons/ProfileFillIcon";
 import { ProfileIcon } from "../../assets/icons/ProfileIcon";
 import { SearchIcon } from "../../assets/icons/SearchIcon";
 import { SettingsIcon } from "../../assets/icons/SettingsIcon";
-import { ThemeColor } from "../../theme/theme";
 import { TrashIcon } from "../../assets/icons/TrashIcon";
-import { useAppTheme } from "@hooks";
 
 export interface IconBaseProps {
     size?: number;
