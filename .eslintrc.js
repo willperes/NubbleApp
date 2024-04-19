@@ -5,6 +5,7 @@ module.exports = {
   rules: {
     "object-curly-spacing": 0,
     "array-bracket-spacing": 2,
+    "react-native/no-inline-styles": 0,
     quotes: [2, "double"],
   },
   overrides: [
