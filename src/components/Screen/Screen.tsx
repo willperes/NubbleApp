@@ -3,7 +3,7 @@ import { Box, TouchableOpacityBox } from "../Box/Box";
 import { useAppSafeArea } from "../../hooks/useAppSafeArea";
 import { Icon } from "../Icon/Icon";
 import { Text } from "../Text/Text";
-import { KeyboardAvoidingView, Platform, ScrollView } from "react-native";
+import { KeyboardAvoidingView, Platform } from "react-native";
 import {
     ScrollViewContainer,
     ViewContainer,

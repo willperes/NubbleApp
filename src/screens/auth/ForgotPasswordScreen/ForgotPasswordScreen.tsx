@@ -1,9 +1,6 @@
 import React from "react";
-import { Screen } from "../../../components/Screen/Screen";
-import { Text } from "../../../components/Text/Text";
-import { Button } from "../../../components/Button/Button";
+import { Screen, Text, Button, FormTextInput } from "@components";
 import { useResetNavigationSuccess } from "../../../hooks/useResetNavigationSuccess";
-import { FormTextInput } from "../../../components/Form/FormTextInput/FormTextInput";
 import { useForm } from "react-hook-form";
 import {
     ForgotPasswordSchema,
