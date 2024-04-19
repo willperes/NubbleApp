@@ -1,10 +1,16 @@
-import React from "react";
-import { Screen, Text, Button, FormPasswordInput } from "@components";
-import { useResetNavigationSuccess } from "../../../hooks/useResetNavigationSuccess";
-import { useForm } from "react-hook-form";
-import { FormTextInput } from "@components";
-import { signUpSchema, SignUpSchema } from "./signUpSchema";
+import {
+    Button,
+    FormPasswordInput,
+    FormTextInput,
+    Screen,
+    Text,
+} from "@components";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useResetNavigationSuccess } from "@hooks";
+import React from "react";
+import { useForm } from "react-hook-form";
+
+import { SignUpSchema, signUpSchema } from "./signUpSchema";
 
 export function SignUpScreen() {
     const { control, formState, handleSubmit } = useForm<SignUpSchema>({

@@ -1,16 +1,17 @@
-import React from "react";
 import {
-    Text,
     Button,
-    Screen,
-    FormTextInput,
     FormPasswordInput,
+    FormTextInput,
+    Screen,
+    Text,
 } from "@components";
-import { NativeStackScreenProps } from "react-native-screens/lib/typescript/native-stack/types";
-import { RootStackParamList } from "../../../routes/Routes";
-import { useForm } from "react-hook-form";
-import { LoginSchema, loginSchema } from "./loginSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { RootStackParamList } from "@routes";
+import React from "react";
+import { useForm } from "react-hook-form";
+import { NativeStackScreenProps } from "react-native-screens/lib/typescript/native-stack/types";
+
+import { LoginSchema, loginSchema } from "./loginSchema";
 
 type ScreenProps = NativeStackScreenProps<RootStackParamList, "LoginScreen">;
 

@@ -1,7 +1,7 @@
+import { Button, Icon, Screen, Text } from "@components";
+import { RootStackParamList } from "@routes";
 import React from "react";
-import { Screen, Icon, Text, Button } from "@components";
 import { NativeStackScreenProps } from "react-native-screens/lib/typescript/native-stack/types";
-import { RootStackParamList } from "../../../routes/Routes";
 
 type ScreenProps = NativeStackScreenProps<RootStackParamList, "SuccessScreen">;
 
