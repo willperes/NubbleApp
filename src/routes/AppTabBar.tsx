@@ -56,12 +56,13 @@ export function AppTabBar({
 
         return (
           <TouchableOpacityBox
+            key={route.name}
+            {...$itemWrapper}
             accessibilityState={isFocused ? { selected: true } : {}}
             accessibilityLabel={options.tabBarAccessibilityLabel}
             testID={options.tabBarTestID}
             onPress={onPress}
             onLongPress={onLongPress}
-            {...$itemWrapper}
           >
             <Icon
               color={isFocused ? "primary" : "backgroundContrast"}
