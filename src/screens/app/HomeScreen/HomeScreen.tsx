@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
+import { FlatList, ListRenderItemInfo } from "react-native";
 
 import { Post, postService } from "@domain";
 
-import { Screen, Text } from "@components";
+import { PostItem, Screen } from "@components";
 
 export function HomeScreen() {
   const [postList, setPostList] = useState<Post[]>([]);
@@ -13,10 +14,16 @@ export function HomeScreen() {
   }, []);
 
   return (
-    <Screen scrollable>
-      {postList.map(post => (
-        <Text key={post.id}>{post.text}</Text>
-      ))}
+    <Screen>
+      <FlatList
+        data={postList}
+        keyExtractor={({ id }) => id}
+        renderItem={renderItem}
+      />
     </Screen>
   );
+}
+
+function renderItem({ item }: ListRenderItemInfo<Post>) {
+  return <PostItem post={item} />;
 }
