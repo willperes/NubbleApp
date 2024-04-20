@@ -4,7 +4,7 @@ import { Screen, Text } from "@components";
 
 export function SettingsScreen() {
   return (
-    <Screen scrollable>
+    <Screen scrollable canGoBack>
       <Text preset={"headingSmall"}>Settings Screen</Text>
     </Screen>
   );

@@ -1,16 +1,22 @@
 import React from "react";
 
 import { Button, Screen, Text } from "@components";
-import { AppScreenProps } from "@routes";
+import { AppTabScreenProps } from "@routes";
 
-export function HomeScreen({ navigation }: AppScreenProps<"HomeScreen">) {
+export function HomeScreen({ navigation }: AppTabScreenProps<"HomeScreen">) {
   return (
     <Screen scrollable>
       <Text preset={"headingLarge"}>Home Screen</Text>
 
       <Button
-        title={"settings"}
+        title={"Settings"}
         onPress={() => navigation.navigate("SettingsScreen")}
+      />
+
+      <Button
+        title={"My Profile"}
+        onPress={() => navigation.navigate("MyProfileScreen")}
+        mt={"s16"}
       />
     </Screen>
   );
