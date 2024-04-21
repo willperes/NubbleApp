@@ -16,7 +16,7 @@ export function PostHeader({ author }: PostHeaderProps) {
         width={32}
         borderRadius={14}
       />
-      <Text ml={"s12"} preset={"paragraphMedium"} weight={"semiBold"}>
+      <Text ml={"s12"} preset={"paragraphMedium"}>
         {author.userName}
       </Text>
     </Box>
