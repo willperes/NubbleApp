@@ -10,6 +10,8 @@ import { Post, postService } from "@domain";
 
 import { PostItem, Screen } from "@components";
 
+import { HomeHeader } from "./components/HomeHeader";
+
 export function HomeScreen() {
   const [postList, setPostList] = useState<Post[]>([]);
 
@@ -24,6 +26,7 @@ export function HomeScreen() {
         keyExtractor={({ id }) => id}
         renderItem={renderItem}
         showsVerticalScrollIndicator={false}
+        ListHeaderComponent={HomeHeader}
       />
     </Screen>
   );
