@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { FlatList, ListRenderItemInfo } from "react-native";
+import {
+  FlatList,
+  ListRenderItemInfo,
+  StyleProp,
+  ViewStyle,
+} from "react-native";
 
 import { Post, postService } from "@domain";
 
@@ -9,16 +14,16 @@ export function HomeScreen() {
   const [postList, setPostList] = useState<Post[]>([]);
 
   useEffect(() => {
-    console.log("AQUI");
     postService.getList().then(list => setPostList(list));
   }, []);
 
   return (
-    <Screen>
+    <Screen style={$screen}>
       <FlatList
         data={postList}
         keyExtractor={({ id }) => id}
         renderItem={renderItem}
+        showsVerticalScrollIndicator={false}
       />
     </Screen>
   );
@@ -27,3 +32,9 @@ export function HomeScreen() {
 function renderItem({ item }: ListRenderItemInfo<Post>) {
   return <PostItem post={item} />;
 }
+
+const $screen: StyleProp<ViewStyle> = {
+  paddingTop: 0,
+  paddingBottom: 0,
+  paddingHorizontal: 0,
+};

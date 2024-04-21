@@ -14,7 +14,7 @@ interface PostItemProps {
 
 export function PostItem({ post }: PostItemProps) {
   return (
-    <Box mb={"s24"}>
+    <Box mb={"s24"} paddingHorizontal={"s24"}>
       <PostHeader author={post.author} />
       <PostImage imageURL={post.imageURL} />
       <PostActions
