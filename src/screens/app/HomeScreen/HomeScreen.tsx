@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import {
   FlatList,
   ListRenderItemInfo,
@@ -6,7 +6,7 @@ import {
   ViewStyle,
 } from "react-native";
 
-import { Post, postService } from "@domain";
+import { Post, useListPosts } from "@domain";
 
 import { PostItem, Screen } from "@components";
 
@@ -14,29 +14,7 @@ import { HomeEmpty } from "./components/HomeEmpty";
 import { HomeHeader } from "./components/HomeHeader";
 
 export function HomeScreen() {
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<boolean>(false);
-  const [postList, setPostList] = useState<Post[]>([]);
-
-  useEffect(() => {
-    fetchData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  async function fetchData(): Promise<void> {
-    try {
-      setIsLoading(true);
-      setError(false);
-
-      const list = await postService.getList();
-      setPostList(list);
-    } catch (err) {
-      console.error("ERRO", error);
-      setError(true);
-    } finally {
-      setIsLoading(false);
-    }
-  }
+  const { postList, isLoading, error, refetch } = useListPosts();
 
   return (
     <Screen style={$screen}>
@@ -47,7 +25,7 @@ export function HomeScreen() {
         showsVerticalScrollIndicator={false}
         ListHeaderComponent={<HomeHeader />}
         ListEmptyComponent={
-          <HomeEmpty refetch={fetchData} loading={isLoading} error={error} />
+          <HomeEmpty refetch={refetch} loading={isLoading} error={error} />
         }
         contentContainerStyle={{ flexGrow: 1 }}
       />
