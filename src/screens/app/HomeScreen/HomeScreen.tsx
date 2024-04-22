@@ -10,14 +10,33 @@ import { Post, postService } from "@domain";
 
 import { PostItem, Screen } from "@components";
 
+import { HomeEmpty } from "./components/HomeEmpty";
 import { HomeHeader } from "./components/HomeHeader";
 
 export function HomeScreen() {
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<boolean>(false);
   const [postList, setPostList] = useState<Post[]>([]);
 
   useEffect(() => {
-    postService.getList().then(list => setPostList(list));
+    fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  async function fetchData(): Promise<void> {
+    try {
+      setIsLoading(true);
+      setError(false);
+
+      const list = await postService.getList();
+      setPostList(list);
+    } catch (err) {
+      console.error("ERRO", error);
+      setError(true);
+    } finally {
+      setIsLoading(false);
+    }
+  }
 
   return (
     <Screen style={$screen}>
@@ -26,7 +45,11 @@ export function HomeScreen() {
         keyExtractor={({ id }) => id}
         renderItem={renderItem}
         showsVerticalScrollIndicator={false}
-        ListHeaderComponent={HomeHeader}
+        ListHeaderComponent={<HomeHeader />}
+        ListEmptyComponent={
+          <HomeEmpty refetch={fetchData} loading={isLoading} error={error} />
+        }
+        contentContainerStyle={{ flexGrow: 1 }}
       />
     </Screen>
   );
@@ -40,4 +63,5 @@ const $screen: StyleProp<ViewStyle> = {
   paddingTop: 0,
   paddingBottom: 0,
   paddingHorizontal: 0,
+  flex: 1,
 };
