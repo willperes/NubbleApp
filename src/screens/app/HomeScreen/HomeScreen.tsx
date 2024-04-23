@@ -16,7 +16,13 @@ import { HomeEmpty } from "./components/HomeEmpty";
 import { HomeHeader } from "./components/HomeHeader";
 
 export function HomeScreen() {
-  const { postList, loading, error, refresh, fetchNextPage } = useListPosts();
+  const {
+    list: postList,
+    loading,
+    error,
+    refresh,
+    fetchNextPage,
+  } = useListPosts();
 
   const flatListRef = useRef<FlatList<Post>>(null);
   useScrollToTop(flatListRef);
