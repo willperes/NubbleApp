@@ -2,6 +2,7 @@ import React from "react";
 import {
   FlatList,
   ListRenderItemInfo,
+  RefreshControl,
   StyleProp,
   ViewStyle,
 } from "react-native";
@@ -14,7 +15,7 @@ import { HomeEmpty } from "./components/HomeEmpty";
 import { HomeHeader } from "./components/HomeHeader";
 
 export function HomeScreen() {
-  const { postList, isLoading, error, refetch, fetchNextPage } = useListPosts();
+  const { postList, loading, error, refresh, fetchNextPage } = useListPosts();
 
   return (
     <Screen style={$screen}>
@@ -25,9 +26,13 @@ export function HomeScreen() {
         showsVerticalScrollIndicator={false}
         onEndReached={fetchNextPage}
         onEndReachedThreshold={0.1}
+        refreshing={loading}
+        refreshControl={
+          <RefreshControl refreshing={loading} onRefresh={refresh} />
+        }
         ListHeaderComponent={<HomeHeader />}
         ListEmptyComponent={
-          <HomeEmpty refetch={refetch} loading={isLoading} error={error} />
+          <HomeEmpty refetch={refresh} loading={loading} error={error} />
         }
         contentContainerStyle={{ flexGrow: 1 }}
       />
