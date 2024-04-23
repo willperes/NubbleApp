@@ -11,7 +11,6 @@ export function useListPosts() {
 
   useEffect(() => {
     fetchInitialData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   async function fetchInitialData(): Promise<void> {
@@ -29,7 +28,7 @@ export function useListPosts() {
         setHasNextPage(false);
       }
     } catch (err) {
-      console.error("ERRO", error);
+      console.error("ERRO", err);
       setError(true);
     } finally {
       setLoading(false);
