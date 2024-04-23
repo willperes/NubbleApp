@@ -14,7 +14,7 @@ import { HomeEmpty } from "./components/HomeEmpty";
 import { HomeHeader } from "./components/HomeHeader";
 
 export function HomeScreen() {
-  const { postList, isLoading, error, refetch } = useListPosts();
+  const { postList, isLoading, error, refetch, fetchNextPage } = useListPosts();
 
   return (
     <Screen style={$screen}>
@@ -23,6 +23,8 @@ export function HomeScreen() {
         keyExtractor={({ id }) => id}
         renderItem={renderItem}
         showsVerticalScrollIndicator={false}
+        onEndReached={fetchNextPage}
+        onEndReachedThreshold={0.1}
         ListHeaderComponent={<HomeHeader />}
         ListEmptyComponent={
           <HomeEmpty refetch={refetch} loading={isLoading} error={error} />
