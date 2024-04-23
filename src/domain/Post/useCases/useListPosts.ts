@@ -24,6 +24,7 @@ export function useListPosts() {
 
       if (meta.hasNextPage) {
         setPage(2);
+        setHasNextPage(true);
       } else {
         setHasNextPage(false);
       }
