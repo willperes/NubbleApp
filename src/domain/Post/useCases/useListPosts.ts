@@ -7,6 +7,7 @@ export function useListPosts() {
   const [error, setError] = useState<boolean>(false);
   const [postList, setPostList] = useState<Post[]>([]);
   const [page, setPage] = useState(1);
+  const [hasNextPage, setHasNextPage] = useState(true);
 
   useEffect(() => {
     fetchInitialData();
@@ -18,11 +19,14 @@ export function useListPosts() {
       setLoading(true);
       setError(false);
 
-      const list = await postService.getList(1);
-      setPostList(list);
+      const { data, meta } = await postService.getList(1);
+      setPostList(data);
 
-      // TODO: validar se tem mais páginas
-      setPage(2);
+      if (meta.hasNextPage) {
+        setPage(2);
+      } else {
+        setHasNextPage(false);
+      }
     } catch (err) {
       console.error("ERRO", error);
       setError(true);
@@ -32,16 +36,21 @@ export function useListPosts() {
   }
 
   async function fetchNextPage() {
-    if (loading) {
+    if (loading || !hasNextPage) {
       return;
     }
 
     try {
       setLoading(true);
 
-      const list = await postService.getList(page);
-      setPostList(prev => prev.concat(list));
-      setPage(prev => prev + 1);
+      const { data, meta } = await postService.getList(page);
+      setPostList(prev => prev.concat(data));
+
+      if (meta.hasNextPage) {
+        setPage(prev => prev + 1);
+      } else {
+        setHasNextPage(false);
+      }
     } catch (e) {
       setError(true);
     } finally {
