@@ -49,6 +49,7 @@ export function useListPosts() {
 
       if (meta.hasNextPage) {
         setPage(prev => prev + 1);
+        setHasNextPage(true);
       } else {
         setHasNextPage(false);
       }
