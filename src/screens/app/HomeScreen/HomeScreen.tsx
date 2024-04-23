@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import {
   FlatList,
   ListRenderItemInfo,
@@ -8,6 +8,7 @@ import {
 } from "react-native";
 
 import { Post, useListPosts } from "@domain";
+import { useScrollToTop } from "@react-navigation/native";
 
 import { PostItem, Screen } from "@components";
 
@@ -17,9 +18,13 @@ import { HomeHeader } from "./components/HomeHeader";
 export function HomeScreen() {
   const { postList, loading, error, refresh, fetchNextPage } = useListPosts();
 
+  const flatListRef = useRef<FlatList<Post>>(null);
+  useScrollToTop(flatListRef);
+
   return (
     <Screen style={$screen}>
       <FlatList
+        ref={flatListRef}
         data={postList}
         keyExtractor={({ id }) => id}
         renderItem={renderItem}
