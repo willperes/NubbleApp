@@ -11,7 +11,7 @@ async function getList(
 ): Promise<Page<PostComment>> {
   const postPageAPI = await postCommentApi.getList(postId, {
     page,
-    per_page: 10,
+    per_page: 15,
   });
   return {
     data: postPageAPI.data.map(postCommentAdapter.toPostComment),

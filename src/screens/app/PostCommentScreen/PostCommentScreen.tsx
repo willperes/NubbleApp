@@ -1,25 +1,50 @@
-import React, { useEffect } from "react";
+import React from "react";
+import { FlatList, ListRenderItemInfo } from "react-native";
 
-import { useListPostComments } from "@domain";
+import { PostComment, useListPostComments } from "@domain";
 
-import { Box, Screen, Text } from "@components";
+import { Screen } from "@components";
+import { useAppSafeArea, useAppTheme } from "@hooks";
 import { AppScreenProps } from "@routes";
+
+import { PostCommentBottom, PostCommentItem } from "./components";
 
 export function PostCommentScreen({
   route,
 }: AppScreenProps<"PostCommentScreen">) {
   const { postId } = route.params;
-  const { list } = useListPostComments(postId);
 
-  useEffect(() => {
-    console.log("list", list);
-  }, [list]);
+  const { spacing } = useAppTheme();
+  const { bottom } = useAppSafeArea();
+  const { list, hasNextPage, fetchNextPage } = useListPostComments(postId);
+
+  function renderItem({ item }: ListRenderItemInfo<PostComment>) {
+    return <PostCommentItem postComment={item} />;
+  }
 
   return (
-    <Screen scrollable canGoBack title={"Comentários"}>
-      <Box>
-        <Text preset={"headingLarge"}>Comentários</Text>
-      </Box>
+    <Screen
+      canGoBack
+      title={"Comentários"}
+      style={{ flex: 1, paddingBottom: 0 }}
+    >
+      <FlatList
+        data={list}
+        keyExtractor={({ id }) => id.toString()}
+        renderItem={renderItem}
+        contentContainerStyle={{
+          flexGrow: 1,
+          gap: spacing.s16,
+          paddingBottom: bottom,
+        }}
+        showsVerticalScrollIndicator={false}
+        ListFooterComponent={
+          <PostCommentBottom
+            hasNextPage={hasNextPage}
+            fetchNextPage={fetchNextPage}
+          />
+        }
+      />
     </Screen>
   );
 }

@@ -9,7 +9,7 @@ export function usePaginatedList<Data>(
   const [error, setError] = useState<boolean>(false);
   const [list, setList] = useState<Data[]>([]);
   const [page, setPage] = useState(1);
-  const [hasNextPage, setHasNextPage] = useState(true);
+  const [hasNextPage, setHasNextPage] = useState(false);
 
   useEffect(() => {
     fetchInitialData();
@@ -66,6 +66,7 @@ export function usePaginatedList<Data>(
     list,
     loading,
     error,
+    hasNextPage,
     refresh: fetchInitialData,
     fetchNextPage,
   };
