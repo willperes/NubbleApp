@@ -6,4 +6,4 @@ export * from "./Post/useCases/useListPosts";
 
 export * from "./PostComment/postCommentTypes";
 export * from "./PostComment/postCommentService";
-export * from "./PostComment/useCases/useListComments";
+export * from "./PostComment/useCases/useListPostComments";

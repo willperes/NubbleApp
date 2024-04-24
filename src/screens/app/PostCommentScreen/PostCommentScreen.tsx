@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
+
+import { useListPostComments } from "@domain";
 
 import { Box, Screen, Text } from "@components";
 import { AppScreenProps } from "@routes";
@@ -6,9 +8,12 @@ import { AppScreenProps } from "@routes";
 export function PostCommentScreen({
   route,
 }: AppScreenProps<"PostCommentScreen">) {
-  // TODO: remove this eslint disable line
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { postId } = route.params;
+  const { list } = useListPostComments(postId);
+
+  useEffect(() => {
+    console.log("list", list);
+  }, [list]);
 
   return (
     <Screen scrollable canGoBack title={"Comentários"}>

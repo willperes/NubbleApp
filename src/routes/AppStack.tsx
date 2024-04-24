@@ -8,7 +8,7 @@ import { SettingsScreen, PostCommentScreen } from "@screens";
 import { AppTabBottomTabParamList, AppTabNavigator } from "./AppTabNavigator";
 export type AppStackParamList = {
   AppTabNavigator: NavigatorScreenParams<AppTabBottomTabParamList>;
-  PostCommentScreen: { postId: string };
+  PostCommentScreen: { postId: number };
   SettingsScreen: undefined;
 };
 

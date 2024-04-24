@@ -32,7 +32,7 @@ export function HomeScreen() {
       <FlatList
         ref={flatListRef}
         data={postList}
-        keyExtractor={({ id }) => id}
+        keyExtractor={({ id }) => id.toString()}
         renderItem={renderItem}
         showsVerticalScrollIndicator={false}
         onEndReached={fetchNextPage}
