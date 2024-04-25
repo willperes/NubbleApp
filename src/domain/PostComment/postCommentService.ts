@@ -9,16 +9,23 @@ async function getList(
   postId: number,
   page: number,
 ): Promise<Page<PostComment>> {
-  const postPageAPI = await postCommentApi.getList(postId, {
+  const postCommentPageAPI = await postCommentApi.getList(postId, {
     page,
     per_page: 15,
   });
   return {
-    data: postPageAPI.data.map(postCommentAdapter.toPostComment),
-    meta: apiAdapter.toMetaDataPage(postPageAPI.meta),
+    data: postCommentPageAPI.data.map(postCommentAdapter.toPostComment),
+    meta: apiAdapter.toMetaDataPage(postCommentPageAPI.meta),
   };
+}
+
+async function create(postId: number, message: string): Promise<PostComment> {
+  const postCommentAPI = await postCommentApi.create(postId, message);
+
+  return postCommentAdapter.toPostComment(postCommentAPI);
 }
 
 export const postCommentService = {
   getList,
+  create,
 };
