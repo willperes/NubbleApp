@@ -12,12 +12,12 @@ export function PostCommentItem({ postComment }: PostCommentItemProps) {
   return (
     <Box flexDirection={"row"} alignItems={"center"}>
       <ProfileAvatar imageURL={postComment.author.profileURL} />
-      <Box ml={"s12"}>
+      <Box ml={"s12"} flex={1}>
         <Text preset={"paragraphSmall"} weight={"bold"}>
           {postComment.author.userName}
         </Text>
         <Text preset={"paragraphSmall"} color={"gray1"}>
-          {postComment.message}
+          {postComment.message} - {postComment.createdAtRelative}
         </Text>
       </Box>
     </Box>
