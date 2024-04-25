@@ -16,9 +16,13 @@ export function PostCommentTextMessage({
 }: PostCommentTextMessageProps) {
   const [message, setMessage] = useState("");
 
-  const { createComment } = usePostCommentCreate(postId, {
+  const { mutate: createComment } = usePostCommentCreate({
     onSuccess: onCommentCreated,
   });
+
+  function onPressSend() {
+    createComment({ message, postId });
+  }
 
   async function onCommentCreated() {
     setMessage("");
@@ -31,7 +35,7 @@ export function PostCommentTextMessage({
       value={message}
       onChangeText={setMessage}
       placeholder={"Adicione um comentário"}
-      onPressSend={createComment}
+      onPressSend={onPressSend}
     />
   );
 }
