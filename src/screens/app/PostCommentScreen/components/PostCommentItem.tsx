@@ -51,6 +51,7 @@ export function PostCommentItem({
     onRemoveComment();
     showToast({
       message: "Comentário deletado",
+      position: "bottom",
     });
   }
 
