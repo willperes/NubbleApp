@@ -52,6 +52,7 @@ export function PostCommentItem({
     showToast({
       message: "Comentário deletado",
       position: "bottom",
+      duration: 5 * 1000,
     });
   }
 

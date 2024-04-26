@@ -1,6 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect, useRef } from "react";
+import { Animated } from "react-native";
 
-import { useToast, useToastService } from "@services";
+import { Toast as ToastType, useToast, useToastService } from "@services";
 
 import { ToastContent } from "./components/ToastContent";
 
@@ -10,10 +11,36 @@ export function Toast() {
   const toast = useToast();
   const { hideToast } = useToastService();
 
+  const fadeAnimation = useRef(new Animated.Value(0)).current;
+
+  const runEnterAnimation = useCallback(() => {
+    Animated.timing(fadeAnimation, {
+      toValue: 1,
+      duration: 300,
+      useNativeDriver: true,
+    }).start();
+  }, [fadeAnimation]);
+
+  const runExitAnimation = useCallback(
+    (callback: Animated.EndCallback) => {
+      Animated.timing(fadeAnimation, {
+        toValue: 0,
+        duration: 300,
+        useNativeDriver: true,
+      }).start(callback);
+    },
+    [fadeAnimation],
+  );
+
   useEffect(() => {
-    setTimeout(() => {
-      hideToast();
-    }, toast?.duration || DEFAULT_DURATION);
+    if (toast) {
+      runEnterAnimation();
+
+      setTimeout(() => {
+        runExitAnimation(hideToast);
+      }, toast?.duration || DEFAULT_DURATION);
+    }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [toast]);
 
@@ -21,5 +48,18 @@ export function Toast() {
     return null;
   }
 
-  return <ToastContent toast={toast} />;
+  const position: ToastType.Position = toast?.position || "top";
+
+  return (
+    <Animated.View
+      style={{
+        position: "absolute",
+        alignSelf: "center",
+        [position]: 75,
+        opacity: fadeAnimation,
+      }}
+    >
+      <ToastContent toast={toast} />
+    </Animated.View>
+  );
 }

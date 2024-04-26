@@ -13,11 +13,10 @@ interface ToastContentProps {
 }
 
 export function ToastContent({ toast }: ToastContentProps) {
-  const position: Toast.Position = toast?.position || "top";
   const type: Toast.Type = toast?.type || "success";
 
   return (
-    <Box {...$wrapper} style={[$shadowProps, { [position]: 75 }]}>
+    <Box {...$wrapper} style={[$shadowProps]}>
       <Icon {...mapTypeToIcon[type]} size={32} />
 
       <Text
@@ -44,8 +43,6 @@ const mapTypeToIcon: Record<Toast.Type, IconProps> = {
 };
 
 const $wrapper: BoxProps = {
-  position: "absolute",
-  alignSelf: "center",
   maxWidth: MAX_WIDTH,
 
   flexDirection: "row",
