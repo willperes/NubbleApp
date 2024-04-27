@@ -40,8 +40,6 @@ export function Toast() {
         runExitAnimation(hideToast);
       }, toast?.duration || DEFAULT_DURATION);
     }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [toast]);
 
   if (!toast) {

@@ -1,14 +1,34 @@
-import { MutationOptions, useMutation } from "@infra";
+import { useCallback, useEffect, useState } from "react";
 
 import { userService } from "../userService";
 import { User } from "../userTypes";
 
-type GetByIdMutationParams = { userId: number };
+export function useUserGetById(id: number) {
+  const [user, setUser] = useState<User>();
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<boolean | null>(null);
 
-export function useUserGetById(options: MutationOptions<User>) {
-  function getByIdMutation({ userId }: GetByIdMutationParams) {
-    return userService.getById(userId);
-  }
+  const getUserById = useCallback(async () => {
+    setLoading(true);
+    setError(null);
 
-  return useMutation<GetByIdMutationParams, User>(getByIdMutation, options);
+    try {
+      const _user = await userService.getById(id);
+      setUser(_user);
+    } catch (err) {
+      setError(true);
+    } finally {
+      setLoading(false);
+    }
+  }, [id]);
+
+  useEffect(() => {
+    getUserById();
+  }, [id]);
+
+  return {
+    user,
+    loading,
+    error,
+  };
 }
