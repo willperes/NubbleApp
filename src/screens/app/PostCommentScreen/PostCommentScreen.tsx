@@ -10,6 +10,7 @@ import { AppScreenProps } from "@routes";
 import {
   PostCommentBottom,
   PostCommentItem,
+  PostCommentEmpty,
   PostCommentTextMessage,
 } from "./components";
 
@@ -19,7 +20,7 @@ export function PostCommentScreen({
   const { postId, postAuthorId } = route.params;
 
   const { id: userId } = useUser();
-  const { list, hasNextPage, fetchNextPage, refresh } =
+  const { list, loading, hasNextPage, fetchNextPage, refresh } =
     usePostCommentList(postId);
   const { spacing } = useAppTheme();
 
@@ -41,10 +42,12 @@ export function PostCommentScreen({
         keyExtractor={({ id }) => id.toString()}
         renderItem={renderItem}
         contentContainerStyle={{
+          flexGrow: 1,
           gap: spacing.s16,
           paddingBottom: spacing.s20,
         }}
         showsVerticalScrollIndicator={false}
+        ListEmptyComponent={<PostCommentEmpty loading={loading} />}
         ListFooterComponent={
           <PostCommentBottom
             hasNextPage={hasNextPage}
