@@ -7,7 +7,7 @@ import {
   ViewStyle,
 } from "react-native";
 
-import { Post, useListPosts } from "@domain";
+import { Post, usePostList } from "@domain";
 import { useScrollToTop } from "@react-navigation/native";
 
 import { PostItem, Screen } from "@components";
@@ -18,11 +18,11 @@ import { HomeHeader } from "./components/HomeHeader";
 export function HomeScreen() {
   const {
     list: postList,
-    loading,
-    error,
-    refresh,
+    isLoading,
+    isError,
+    refetch,
     fetchNextPage,
-  } = useListPosts();
+  } = usePostList();
 
   const flatListRef = useRef<FlatList<Post>>(null);
   useScrollToTop(flatListRef);
@@ -37,13 +37,13 @@ export function HomeScreen() {
         showsVerticalScrollIndicator={false}
         onEndReached={fetchNextPage}
         onEndReachedThreshold={0.1}
-        refreshing={loading}
+        refreshing={isLoading}
         refreshControl={
-          <RefreshControl refreshing={loading} onRefresh={refresh} />
+          <RefreshControl refreshing={isLoading} onRefresh={refetch} />
         }
         ListHeaderComponent={<HomeHeader />}
         ListEmptyComponent={
-          <HomeEmpty refetch={refresh} loading={loading} error={error} />
+          <HomeEmpty refetch={refetch} loading={isLoading} error={isError} />
         }
         contentContainerStyle={{ flexGrow: 1 }}
       />

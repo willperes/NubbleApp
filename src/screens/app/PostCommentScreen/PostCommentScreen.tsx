@@ -20,7 +20,7 @@ export function PostCommentScreen({
   const { postId, postAuthorId } = route.params;
 
   const { id: userId } = useUser();
-  const { list, loading, hasNextPage, fetchNextPage, refresh } =
+  const { list, isLoading, hasNextPage, fetchNextPage, refetch } =
     usePostCommentList(postId);
   const { spacing } = useAppTheme();
 
@@ -30,7 +30,7 @@ export function PostCommentScreen({
         postComment={item}
         userId={userId}
         postAuthorId={postAuthorId}
-        onRemoveComment={refresh}
+        onRemoveComment={refetch}
       />
     );
   }
@@ -47,7 +47,7 @@ export function PostCommentScreen({
           paddingBottom: spacing.s20,
         }}
         showsVerticalScrollIndicator={false}
-        ListEmptyComponent={<PostCommentEmpty loading={loading} />}
+        ListEmptyComponent={<PostCommentEmpty loading={isLoading} />}
         ListFooterComponent={
           <PostCommentBottom
             hasNextPage={hasNextPage}
@@ -55,7 +55,7 @@ export function PostCommentScreen({
           />
         }
       />
-      <PostCommentTextMessage postId={postId} onAddComment={refresh} />
+      <PostCommentTextMessage postId={postId} onAddComment={refetch} />
     </Screen>
   );
 }
