@@ -13,12 +13,12 @@ import { AppScreenProps } from "@routes";
 
 export function ProfileScreen({ route }: AppScreenProps<"ProfileScreen">) {
   const { userId } = route.params;
-  const { user, loading } = useUserGetById(userId);
+  const { user, isLoading } = useUserGetById(userId);
 
   return (
     <Screen scrollable canGoBack>
       <>
-        {loading && <ActivityIndicator color={"primary"} />}
+        {isLoading && <ActivityIndicator color={"primary"} />}
         {user && (
           <Box alignItems={"center"}>
             <ProfileAvatar size={64} imageURL={user.profileUrl} />
