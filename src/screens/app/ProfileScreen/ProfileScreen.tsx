@@ -1,4 +1,5 @@
 import React from "react";
+import { ScrollView, RefreshControl } from "react-native";
 
 import { useUserGetById } from "@domain";
 
@@ -13,25 +14,33 @@ import { AppScreenProps } from "@routes";
 
 export function ProfileScreen({ route }: AppScreenProps<"ProfileScreen">) {
   const { userId } = route.params;
-  const { user, isLoading } = useUserGetById(userId);
+  const { user, isLoading, isFetching, refetch } = useUserGetById(userId);
 
   return (
-    <Screen scrollable canGoBack>
+    <Screen flex={1} canGoBack>
       <>
         {isLoading && <ActivityIndicator color={"primary"} />}
         {user && (
-          <Box alignItems={"center"}>
-            <ProfileAvatar size={64} imageURL={user.profileUrl} />
+          <ScrollView
+            refreshControl={
+              <RefreshControl refreshing={isFetching} onRefresh={refetch} />
+            }
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={{ flexGrow: 1 }}
+          >
+            <Box alignItems={"center"}>
+              <ProfileAvatar size={64} imageURL={user.profileUrl} />
 
-            <Text preset={"headingMedium"} weight={"bold"} mt={"s16"}>
-              {user.fullName}
-            </Text>
+              <Text preset={"headingMedium"} weight={"bold"} mt={"s16"}>
+                {user.fullName}
+              </Text>
 
-            <Text
-              preset={"paragraphLarge"}
-              color={"gray1"}
-            >{`@${user.username}`}</Text>
-          </Box>
+              <Text
+                preset={"paragraphLarge"}
+                color={"gray1"}
+              >{`@${user.username}`}</Text>
+            </Box>
+          </ScrollView>
         )}
       </>
     </Screen>
