@@ -3,12 +3,12 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import { postCommentService } from "../postCommentService";
 
-type RemoveCommentMutationParams = { postCommentId: number };
+type RemoveCommentMutationVariables = { postCommentId: number };
 
 interface UsePostCommentRemoveResult {
   isLoading: boolean;
   isError: boolean;
-  removeComment: (params: RemoveCommentMutationParams) => void;
+  removeComment: (params: RemoveCommentMutationVariables) => void;
 }
 
 export function usePostCommentRemove(
@@ -19,7 +19,7 @@ export function usePostCommentRemove(
   const { isLoading, isError, mutate } = useMutation<
     string,
     unknown,
-    RemoveCommentMutationParams
+    RemoveCommentMutationVariables
   >({
     mutationFn: ({ postCommentId }) => postCommentService.remove(postCommentId),
     onSuccess: data => {
@@ -38,8 +38,8 @@ export function usePostCommentRemove(
     },
   });
 
-  async function removeComment(params: RemoveCommentMutationParams) {
-    return mutate(params);
+  async function removeComment(variables: RemoveCommentMutationVariables) {
+    return mutate(variables);
   }
 
   return {

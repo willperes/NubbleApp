@@ -6,12 +6,18 @@ import { PostComment } from "../postCommentTypes";
 
 type CreateCommentMutationVariables = { message: string };
 
+interface UsePostCommentCreateResult {
+  isLoading: boolean;
+  isError: boolean;
+  createComment: (variables: CreateCommentMutationVariables) => void;
+}
+
 export function usePostCommentCreate(
   postId: number,
   options?: MutationOptions<PostComment>,
-) {
-  async function createComment(params: CreateCommentMutationVariables) {
-    mutate(params);
+): UsePostCommentCreateResult {
+  async function createComment(variables: CreateCommentMutationVariables) {
+    mutate(variables);
   }
 
   const queryClient = useQueryClient();
@@ -20,7 +26,8 @@ export function usePostCommentCreate(
     unknown,
     CreateCommentMutationVariables
   >({
-    mutationFn: params => postCommentService.create(postId, params.message),
+    mutationFn: variables =>
+      postCommentService.create(postId, variables.message),
     onSuccess: data => {
       queryClient.invalidateQueries({
         queryKey: [QueryKeys.PostCommentList, postId],
