@@ -55,7 +55,7 @@ export function PostCommentScreen({
           />
         }
       />
-      <PostCommentTextMessage postId={postId} onAddComment={refetch} />
+      <PostCommentTextMessage postId={postId} />
     </Screen>
   );
 }
