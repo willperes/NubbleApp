@@ -20,17 +20,17 @@ export function PostCommentScreen({
   const { postId, postAuthorId } = route.params;
 
   const { id: userId } = useUser();
-  const { list, isLoading, hasNextPage, fetchNextPage, refetch } =
+  const { list, isLoading, hasNextPage, fetchNextPage } =
     usePostCommentList(postId);
   const { spacing } = useAppTheme();
 
   function renderItem({ item }: ListRenderItemInfo<PostComment>) {
     return (
       <PostCommentItem
+        postId={postId}
         postComment={item}
         userId={userId}
         postAuthorId={postAuthorId}
-        onRemoveComment={refetch}
       />
     );
   }

@@ -7,21 +7,22 @@ import { useToastService } from "@services";
 import { Box, ProfileAvatar, Text } from "@components";
 
 type PostCommentItemProps = {
+  postId: number;
   postComment: PostComment;
   userId: number;
   postAuthorId: number;
-
-  onRemoveComment: () => void;
 };
 
 export function PostCommentItem({
+  postId,
   postComment,
   userId,
   postAuthorId,
-  onRemoveComment,
 }: PostCommentItemProps) {
   const { showToast } = useToastService();
-  const { mutate } = usePostCommentRemove({ onSuccess: onCommentRemoved });
+  const { removeComment } = usePostCommentRemove(postId, {
+    onSuccess: onCommentRemoved,
+  });
 
   const isAllowedToRemove = postCommentService.isAllowedToRemove(
     postComment,
@@ -29,8 +30,8 @@ export function PostCommentItem({
     postAuthorId,
   );
 
-  function removeComment() {
-    mutate({ postCommentId: postComment.id });
+  function onConfirmRemoveComment() {
+    removeComment({ postCommentId: postComment.id });
   }
 
   function confirmRemove() {
@@ -40,7 +41,7 @@ export function PostCommentItem({
       [
         {
           text: "Confirmar",
-          onPress: removeComment,
+          onPress: onConfirmRemoveComment,
         },
         { text: "Cancelar", style: "cancel" },
       ],
@@ -48,7 +49,6 @@ export function PostCommentItem({
   }
 
   function onCommentRemoved() {
-    onRemoveComment();
     showToast({
       message: "Comentário deletado",
       position: "bottom",
