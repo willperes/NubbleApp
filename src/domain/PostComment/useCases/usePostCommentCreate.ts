@@ -4,19 +4,19 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { postCommentService } from "../postCommentService";
 import { PostComment } from "../postCommentTypes";
 
-type CreateCommentMutationVariables = { message: string };
+type CreateCommentVariables = { message: string };
 
 interface UsePostCommentCreateResult {
   isLoading: boolean;
   isError: boolean;
-  createComment: (variables: CreateCommentMutationVariables) => void;
+  createComment: (variables: CreateCommentVariables) => Promise<void>;
 }
 
 export function usePostCommentCreate(
   postId: number,
   options?: MutationOptions<PostComment>,
 ): UsePostCommentCreateResult {
-  async function createComment(variables: CreateCommentMutationVariables) {
+  async function createComment(variables: CreateCommentVariables) {
     mutate(variables);
   }
 
@@ -24,7 +24,7 @@ export function usePostCommentCreate(
   const { isLoading, isError, mutate } = useMutation<
     PostComment,
     unknown,
-    CreateCommentMutationVariables
+    CreateCommentVariables
   >({
     mutationFn: variables =>
       postCommentService.create(postId, variables.message),
