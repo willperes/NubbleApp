@@ -1,14 +1,16 @@
-import { create } from "zustand";
+import { useContext } from "react";
 
 import { AuthCredentialsService } from "./authCredentialsTypes";
+import { AuthCredentialsContext } from "./providers/AuthCredentialsProvider";
 
 export function useAuthCredentials(): AuthCredentialsService {
-  return useAuthCredentialsZustand();
-}
+  const context = useContext(AuthCredentialsContext);
 
-const useAuthCredentialsZustand = create<AuthCredentialsService>(set => ({
-  authCredentials: null,
-  isLoading: false,
-  saveCredentials: async authCredentials => set({ authCredentials }),
-  removeCredentials: async () => set({ authCredentials: null }),
-}));
+  if (!context) {
+    throw new Error(
+      "useAuthCredentials must be used within an AuthCredentialsProvider",
+    );
+  }
+
+  return context;
+}
