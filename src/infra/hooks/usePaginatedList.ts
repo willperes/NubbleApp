@@ -7,6 +7,7 @@ interface UsePaginatedListResult<TData> {
   list: TData[];
   isError: boolean;
   isLoading: boolean;
+  isRefetching: boolean;
   hasNextPage: boolean;
   refetch: () => void;
   fetchNextPage: () => void;
@@ -39,6 +40,7 @@ export function usePaginatedList<TData>(
   return {
     list,
     isLoading: query.isLoading,
+    isRefetching: query.isRefetching,
     isError: query.isError,
     hasNextPage: !!query.hasNextPage,
     refetch: query.refetch,

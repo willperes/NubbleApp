@@ -19,6 +19,7 @@ export function HomeScreen() {
   const {
     list: postList,
     isLoading,
+    isRefetching,
     isError,
     refetch,
     fetchNextPage,
@@ -37,9 +38,9 @@ export function HomeScreen() {
         showsVerticalScrollIndicator={false}
         onEndReached={fetchNextPage}
         onEndReachedThreshold={0.1}
-        refreshing={isLoading}
+        refreshing={isRefetching}
         refreshControl={
-          <RefreshControl refreshing={isLoading} onRefresh={refetch} />
+          <RefreshControl refreshing={isRefetching} onRefresh={refetch} />
         }
         ListHeaderComponent={<HomeHeader />}
         ListEmptyComponent={
