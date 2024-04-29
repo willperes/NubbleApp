@@ -44,6 +44,9 @@ dependencies:
   react-native-gesture-handler:
     specifier: ^2.16.0
     version: 2.16.0(react-native@0.73.6)(react@18.2.0)
+  react-native-mmkv:
+    specifier: ^2.12.2
+    version: 2.12.2(react-native@0.73.6)(react@18.2.0)
   react-native-safe-area-context:
     specifier: ^4.9.0
     version: 4.9.0(react-native@0.73.6)(react@18.2.0)
@@ -6545,6 +6548,16 @@ packages:
       invariant: 2.2.4
       lodash: 4.17.21
       prop-types: 15.8.1
+      react: 18.2.0
+      react-native: 0.73.6(@babel/core@7.24.4)(@babel/preset-env@7.24.4)(react@18.2.0)
+    dev: false
+
+  /react-native-mmkv@2.12.2(react-native@0.73.6)(react@18.2.0):
+    resolution: {integrity: sha512-6058Aq0p57chPrUutLGe9fYoiDVDNMU2PKV+lLFUJ3GhoHvUrLdsS1PDSCLr00yqzL4WJQ7TTzH+V8cpyrNcfg==}
+    peerDependencies:
+      react: '*'
+      react-native: '>=0.71.0'
+    dependencies:
       react: 18.2.0
       react-native: 0.73.6(@babel/core@7.24.4)(@babel/preset-env@7.24.4)(react@18.2.0)
     dev: false
