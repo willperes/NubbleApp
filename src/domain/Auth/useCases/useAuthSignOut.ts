@@ -1,6 +1,7 @@
+import { useAuthCredentials } from "@services";
 import { useMutation } from "@tanstack/react-query";
 
-import { authApi } from "../authApi";
+import { authService } from "../authService";
 
 interface UseAuthSignOutResult {
   isLoading: boolean;
@@ -8,9 +9,15 @@ interface UseAuthSignOutResult {
 }
 
 export function useAuthSignOut(): UseAuthSignOutResult {
+  const { removeCredentials } = useAuthCredentials();
+
   const { isLoading, mutate } = useMutation<string, unknown, void>({
-    mutationFn: () => authApi.signOut(),
+    mutationFn: authService.signOut,
     retry: false,
+    onSuccess: () => {
+      authService.removeToken();
+      removeCredentials();
+    },
   });
 
   async function signOut() {
