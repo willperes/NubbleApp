@@ -9,7 +9,7 @@ type SignInVariables = { email: string; password: string };
 
 interface UseAuthSignInResult {
   isLoading: boolean;
-  signIn: (variables: SignInVariables) => Promise<void>;
+  signIn: (variables: SignInVariables) => void;
 }
 
 export function useAuthSignIn(
@@ -34,7 +34,7 @@ export function useAuthSignIn(
     },
   });
 
-  async function signIn(variables: SignInVariables) {
+  function signIn(variables: SignInVariables): void {
     mutate(variables);
   }
 

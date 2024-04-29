@@ -5,7 +5,7 @@ import { authService } from "../authService";
 
 interface UseAuthSignOutResult {
   isLoading: boolean;
-  signOut: () => Promise<void>;
+  signOut: () => void;
 }
 
 export function useAuthSignOut(): UseAuthSignOutResult {
@@ -19,7 +19,7 @@ export function useAuthSignOut(): UseAuthSignOutResult {
     },
   });
 
-  async function signOut() {
+  function signOut(): void {
     mutate();
   }
 
