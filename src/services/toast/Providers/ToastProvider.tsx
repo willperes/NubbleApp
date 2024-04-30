@@ -1,7 +1,5 @@
 import React, { createContext, useState } from "react";
 
-import { Toast } from "@components";
-
 import { ToastService } from "../toastTypes";
 
 export const ToastContext = createContext<ToastService>({
@@ -24,7 +22,6 @@ export function ToastProvider({ children }: React.PropsWithChildren) {
   return (
     <ToastContext.Provider value={{ toast, showToast, hideToast }}>
       {children}
-      <Toast />
     </ToastContext.Provider>
   );
 }
