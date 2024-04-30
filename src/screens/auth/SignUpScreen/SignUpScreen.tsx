@@ -1,6 +1,6 @@
 import React from "react";
 
-import { useAuthSignUp, useAuthUsernameAvailability } from "@domain";
+import { useAuthSignUp } from "@domain";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
@@ -16,6 +16,7 @@ import { useResetNavigationSuccess } from "@hooks";
 import { AuthStackParamList } from "@routes";
 
 import { SignUpSchema, signUpSchema } from "./signUpSchema";
+import { useAsyncValidation } from "./useAsyncValidation";
 
 const resetParams: AuthStackParamList["SuccessScreen"] = {
   title: "Sua conta foi criada com sucesso!",
@@ -38,17 +39,11 @@ export function SignUpScreen() {
       resolver: zodResolver(signUpSchema),
     });
 
-  const username = watch("username");
-  const usernameState = getFieldState("username");
-  const usernameIsValid = !usernameState.invalid && usernameState.isDirty;
-  const usernameQuery = useAuthUsernameAvailability({
-    username,
-    enabled: usernameIsValid,
-  });
-
   function submitForm(formValues: SignUpSchema): void {
     signUp(formValues);
   }
+
+  const usernameValidation = useAsyncValidation({ watch, getFieldState });
 
   return (
     <Screen canGoBack scrollable>
@@ -61,12 +56,10 @@ export function SignUpScreen() {
         name={"username"}
         label={"Seu username"}
         placeholder={"@"}
-        errorMessage={
-          usernameQuery.isUnavailable ? "Username indisponível" : undefined
-        }
+        errorMessage={usernameValidation.errorMessage}
         boxProps={{ mb: "s20" }}
         TrailingComponent={
-          usernameQuery.isFetching ? (
+          usernameValidation.isFetching ? (
             <ActivityIndicator size={"small"} />
           ) : undefined
         }
@@ -106,11 +99,7 @@ export function SignUpScreen() {
 
       <Button
         loading={isLoading}
-        disabled={
-          !formState.isValid ||
-          usernameQuery.isFetching ||
-          usernameQuery.isUnavailable
-        }
+        disabled={!formState.isValid || usernameValidation.notReady}
         title={"Criar uma conta"}
         preset={"primary"}
         onPress={handleSubmit(submitForm)}
