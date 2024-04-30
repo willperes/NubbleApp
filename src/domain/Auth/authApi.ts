@@ -2,7 +2,12 @@ import { api } from "@api";
 
 import { UserAPI } from "../User";
 
-import { AuthAPI, FieldAvailabilityAPI, SignUpDataAPI } from "./authTypes";
+import {
+  AuthAPI,
+  FieldAvailabilityAPI,
+  ForgotPasswordParamsAPI,
+  SignUpDataAPI,
+} from "./authTypes";
 
 async function signIn(email: string, password: string): Promise<AuthAPI> {
   const { data } = await api.post<AuthAPI>("login", { email, password });
@@ -37,10 +42,21 @@ async function isUsernameAvailable(params: {
   return data;
 }
 
+async function forgotPassword(
+  params: ForgotPasswordParamsAPI,
+): Promise<{ message: string }> {
+  const { data } = await api.post<{ message: string }>(
+    "forgot-password",
+    params,
+  );
+  return data;
+}
+
 export const authApi = {
   signIn,
   signOut,
   signUp,
   isEmailAvailable,
   isUsernameAvailable,
+  forgotPassword,
 };

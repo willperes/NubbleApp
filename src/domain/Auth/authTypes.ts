@@ -39,3 +39,7 @@ export interface FieldAvailabilityAPI {
   message: string;
   isAvailable: boolean;
 }
+
+export interface ForgotPasswordParamsAPI {
+  email: string;
+}

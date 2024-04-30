@@ -37,6 +37,11 @@ async function isUsernameAvailable(username: string): Promise<boolean> {
   return isAvailable;
 }
 
+async function requestNewPassword(email: string): Promise<string> {
+  const { message } = await authApi.forgotPassword({ email });
+  return message;
+}
+
 function updateToken(token: string): void {
   api.defaults.headers.common.Authorization = `Bearer ${token}`;
 }
@@ -51,6 +56,7 @@ export const authService = {
   signUp,
   isEmailAvailable,
   isUsernameAvailable,
+  requestNewPassword,
   updateToken,
   removeToken,
 };
