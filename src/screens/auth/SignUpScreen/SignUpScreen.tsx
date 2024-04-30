@@ -43,7 +43,10 @@ export function SignUpScreen() {
     signUp(formValues);
   }
 
-  const usernameValidation = useAsyncValidation({ watch, getFieldState });
+  const { usernameValidation, emailValidation } = useAsyncValidation({
+    watch,
+    getFieldState,
+  });
 
   return (
     <Screen canGoBack scrollable>
@@ -86,7 +89,13 @@ export function SignUpScreen() {
         name={"email"}
         label={"E-mail"}
         placeholder={"Digite seu e-mail"}
+        errorMessage={emailValidation.errorMessage}
         boxProps={{ mb: "s20" }}
+        TrailingComponent={
+          emailValidation.isFetching ? (
+            <ActivityIndicator size={"small"} />
+          ) : undefined
+        }
       />
 
       <FormPasswordInput
@@ -99,7 +108,11 @@ export function SignUpScreen() {
 
       <Button
         loading={isLoading}
-        disabled={!formState.isValid || usernameValidation.notReady}
+        disabled={
+          !formState.isValid ||
+          usernameValidation.notReady ||
+          emailValidation.notReady
+        }
         title={"Criar uma conta"}
         preset={"primary"}
         onPress={handleSubmit(submitForm)}
