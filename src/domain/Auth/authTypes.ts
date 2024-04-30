@@ -34,3 +34,8 @@ export type SignUpDataAPI = {
   email: string;
   password: string;
 };
+
+export interface FieldAvailabilityAPI {
+  message: string;
+  isAvailable: boolean;
+}

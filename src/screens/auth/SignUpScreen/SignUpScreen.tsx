@@ -1,10 +1,11 @@
 import React from "react";
 
-import { useAuthSignUp } from "@domain";
+import { useAuthSignUp, useAuthUsernameAvailability } from "@domain";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
 import {
+  ActivityIndicator,
   Button,
   FormPasswordInput,
   FormTextInput,
@@ -31,9 +32,14 @@ export function SignUpScreen() {
     onSuccess: () => reset(resetParams),
   });
 
-  const { control, formState, handleSubmit } = useForm<SignUpSchema>({
+  const { control, formState, watch, handleSubmit } = useForm<SignUpSchema>({
     mode: "onChange",
     resolver: zodResolver(signUpSchema),
+  });
+
+  const username = watch("username");
+  const usernameQuery = useAuthUsernameAvailability({
+    username,
   });
 
   function submitForm(formValues: SignUpSchema): void {
@@ -52,6 +58,11 @@ export function SignUpScreen() {
         label={"Seu username"}
         placeholder={"@"}
         boxProps={{ mb: "s20" }}
+        TrailingComponent={
+          usernameQuery.isFetching ? (
+            <ActivityIndicator size={"small"} />
+          ) : undefined
+        }
       />
 
       <FormTextInput
