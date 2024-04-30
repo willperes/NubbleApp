@@ -61,6 +61,9 @@ export function SignUpScreen() {
         name={"username"}
         label={"Seu username"}
         placeholder={"@"}
+        errorMessage={
+          usernameQuery.isUnavailable ? "Username indisponível" : undefined
+        }
         boxProps={{ mb: "s20" }}
         TrailingComponent={
           usernameQuery.isFetching ? (
@@ -103,7 +106,11 @@ export function SignUpScreen() {
 
       <Button
         loading={isLoading}
-        disabled={!formState.isValid || usernameQuery.isFetching}
+        disabled={
+          !formState.isValid ||
+          usernameQuery.isFetching ||
+          usernameQuery.isUnavailable
+        }
         title={"Criar uma conta"}
         preset={"primary"}
         onPress={handleSubmit(submitForm)}
