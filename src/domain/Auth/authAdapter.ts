@@ -1,11 +1,15 @@
 import { userAdapter } from "../User/userAdapter";
 
-import { AuthCredentials, AuthAPI } from "./authTypes";
+import { AuthCredentials, AuthCredentialsAPI } from "./authTypes";
 
-function toAuthCredentials(authAPI: AuthAPI): AuthCredentials {
+function toAuthCredentials(
+  authCredentialsAPI: AuthCredentialsAPI,
+): AuthCredentials {
   return {
-    token: authAPI.auth.token,
-    user: userAdapter.toUser(authAPI.user),
+    token: authCredentialsAPI.auth.token,
+    tokenExpiresAt: authCredentialsAPI.auth.expires_at,
+    refreshToken: authCredentialsAPI.auth.refreshToken,
+    user: userAdapter.toUser(authCredentialsAPI.user),
   };
 }
 

@@ -3,14 +3,20 @@ import { api } from "@api";
 import { UserAPI } from "../User";
 
 import {
-  AuthAPI,
+  AuthCredentialsAPI,
   FieldAvailabilityAPI,
   ForgotPasswordParamsAPI,
   SignUpDataAPI,
 } from "./authTypes";
 
-async function signIn(email: string, password: string): Promise<AuthAPI> {
-  const { data } = await api.post<AuthAPI>("auth/login", { email, password });
+async function signIn(
+  email: string,
+  password: string,
+): Promise<AuthCredentialsAPI> {
+  const { data } = await api.post<AuthCredentialsAPI>("auth/login", {
+    email,
+    password,
+  });
   return data;
 }
 
@@ -55,6 +61,13 @@ async function forgotPassword(
   return data;
 }
 
+async function refreshToken(token: string): Promise<AuthCredentialsAPI> {
+  const { data } = await api.post<AuthCredentialsAPI>("auth/refresh-token", {
+    refreshToken: token,
+  });
+  return data;
+}
+
 export const authApi = {
   signIn,
   signOut,
@@ -62,4 +75,5 @@ export const authApi = {
   isEmailAvailable,
   isUsernameAvailable,
   forgotPassword,
+  refreshToken,
 };

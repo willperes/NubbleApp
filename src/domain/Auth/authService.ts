@@ -42,6 +42,11 @@ async function requestNewPassword(email: string): Promise<string> {
   return message;
 }
 
+async function refreshToken(token: string): Promise<AuthCredentials> {
+  const authCredentialsAPI = await authApi.refreshToken(token);
+  return authAdapter.toAuthCredentials(authCredentialsAPI);
+}
+
 function updateToken(token: string): void {
   api.defaults.headers.common.Authorization = `Bearer ${token}`;
 }
@@ -57,6 +62,7 @@ export const authService = {
   isEmailAvailable,
   isUsernameAvailable,
   requestNewPassword,
+  refreshToken,
   updateToken,
   removeToken,
 };
