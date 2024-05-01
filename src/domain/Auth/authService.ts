@@ -1,4 +1,5 @@
 import { api } from "@api";
+import { AxiosRequestConfig } from "axios";
 
 import { authAdapter } from "./authAdapter";
 import { authApi } from "./authApi";
@@ -55,6 +56,10 @@ function removeToken(): void {
   api.defaults.headers.common.Authorization = null;
 }
 
+function isRefreshTokenRequest(request: AxiosRequestConfig): boolean {
+  return authApi.isRefreshTokenRequest(request);
+}
+
 export const authService = {
   signIn,
   signOut,
@@ -65,4 +70,5 @@ export const authService = {
   refreshToken,
   updateToken,
   removeToken,
+  isRefreshTokenRequest,
 };

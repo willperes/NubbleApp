@@ -62,17 +62,26 @@ export function AuthCredentialsProvider({ children }: React.PropsWithChildren) {
       async error => {
         const statusCode = error.response.status;
         if (statusCode === 401) {
-          if (!authCredentials?.refreshToken) {
+          const failedRequest = error.config;
+          const isRefreshTokenRequest =
+            authService.isRefreshTokenRequest(error);
+          const hasNoRefreshToken = !authCredentials?.refreshToken;
+          if (
+            hasNoRefreshToken ||
+            isRefreshTokenRequest ||
+            failedRequest.sent
+          ) {
             removeCredentials();
             return Promise.reject(error);
           }
+
+          failedRequest.sent = true;
 
           const updatedCredentials = await authService.refreshToken(
             authCredentials.refreshToken,
           );
           saveCredentials(updatedCredentials);
 
-          const failedRequest = error.config;
           failedRequest.headers.Authorization = `Bearer ${updatedCredentials.token}`;
           return api(failedRequest);
         }
