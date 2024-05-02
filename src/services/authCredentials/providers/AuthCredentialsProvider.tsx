@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import { api } from "@api";
+import { registerInterceptor } from "@api";
 import { AuthCredentials, authService } from "@domain";
 
 import { authCredentialsStorage } from "../authCredentialsStorage";
@@ -57,41 +57,14 @@ export function AuthCredentialsProvider({ children }: React.PropsWithChildren) {
   }, []);
 
   useEffect(() => {
-    const interceptor = api.interceptors.response.use(
-      response => response,
-      async error => {
-        const statusCode = error.response.status;
-        if (statusCode === 401) {
-          const failedRequest = error.config;
-          const isRefreshTokenRequest =
-            authService.isRefreshTokenRequest(error);
-          const hasNoRefreshToken = !authCredentials?.refreshToken;
-          if (
-            hasNoRefreshToken ||
-            isRefreshTokenRequest ||
-            failedRequest.sent
-          ) {
-            removeCredentials();
-            return Promise.reject(error);
-          }
+    const interceptor = registerInterceptor({
+      authCredentials,
+      saveCredentials,
+      removeCredentials,
+    });
 
-          failedRequest.sent = true;
-
-          const updatedCredentials = await authService.refreshToken(
-            authCredentials.refreshToken,
-          );
-          saveCredentials(updatedCredentials);
-
-          failedRequest.headers.Authorization = `Bearer ${updatedCredentials.token}`;
-          return api(failedRequest);
-        }
-      },
-    );
-
-    return () => {
-      api.interceptors.response.eject(interceptor);
-    };
-  }, [authCredentials?.refreshToken]);
+    return interceptor;
+  }, [authCredentials]);
 
   return (
     <AuthCredentialsContext.Provider
