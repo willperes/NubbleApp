@@ -1,4 +1,4 @@
-import { formatISO, sub } from "date-fns";
+import { add, formatISO, sub } from "date-fns";
 
 import { dateUtils } from "../dateUtils";
 
@@ -62,6 +62,13 @@ describe("dateUtils", () => {
       const timeISO = formatISO(time);
 
       expect(dateUtils.formatRelative(timeISO)).toEqual("01/12/2022");
+    });
+
+    it("should display as dd/MM/yyyy if the difference is date is in the future", () => {
+      const time = add(Date.now(), { days: 1 });
+      const timeISO = formatISO(time);
+
+      expect(dateUtils.formatRelative(timeISO)).toEqual("02/12/2023");
     });
   });
 });
