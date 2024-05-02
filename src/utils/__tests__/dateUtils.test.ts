@@ -54,7 +54,7 @@ describe("dateUtils", () => {
       const time = sub(Date.now(), { months: 11 });
       const timeISO = formatISO(time);
 
-      expect(dateUtils.formatRelative(timeISO)).toEqual("11 m");
+      expect(dateUtils.formatRelative(timeISO)).toEqual("11 mes");
     });
 
     it("should display as a date if the difference is higher than 12 months", () => {
