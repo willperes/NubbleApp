@@ -25,7 +25,7 @@ function formatRelative(dateISO: string): string {
   }
 
   const diffInWeeks = Math.floor(diffInDays / 7);
-  if (diffInWeeks < 4) {
+  if (diffInWeeks <= 4) {
     return `${diffInWeeks} sem`;
   }
 
