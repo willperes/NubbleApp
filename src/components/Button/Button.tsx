@@ -24,6 +24,7 @@ export function Button({
 
   return (
     <TouchableOpacityBox
+      testID={"button"}
       disabled={disabled || loading}
       height={50}
       alignItems={"center"}
@@ -34,7 +35,10 @@ export function Button({
       {...touchableOpacityBoxProps}
     >
       {loading ? (
-        <ActivityIndicator color={buttonPreset.content} />
+        <ActivityIndicator
+          testID={"loading-activity-indicator"}
+          color={buttonPreset.content}
+        />
       ) : (
         <Text
           preset={"paragraphMedium"}
