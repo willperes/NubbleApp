@@ -5,4 +5,5 @@ module.exports = {
   ],
   coveragePathIgnorePatterns: ["/node_modules", "index"],
   collectCoverageFrom: ["src/{components,utils}/**/*.{js,jsx,ts,tsx}"],
+  setupFilesAfterEnv: ["./jest.setup.js"],
 };
