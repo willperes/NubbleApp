@@ -6,7 +6,7 @@ import { RenderOptions, render } from "@testing-library/react-native";
 
 import { theme } from "@theme";
 
-function AllTheProviders({ children }: React.PropsWithChildren) {
+export function AllTheProviders({ children }: React.PropsWithChildren) {
   return (
     <ThemeProvider theme={theme}>
       <NavigationContainer>{children}</NavigationContainer>
