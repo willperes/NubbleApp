@@ -1,24 +1,10 @@
 import React from "react";
 
-import { Post } from "@domain";
 import { fireEvent, render, screen } from "test-utils";
 
 import { PostBottom } from "../PostBottom";
 
-const mockedPost: Post = {
-  id: 1,
-  imageURL: "fake-url",
-  commentCount: 3,
-  favoriteCount: 2,
-  reactionCount: 3,
-  text: "This is the text (post description)",
-  author: {
-    id: 2,
-    name: "Willian Peres",
-    profileURL: "https://example.com",
-    userName: "willperes",
-  },
-};
+import { mockedPost } from "./mockedData/mockedPost";
 
 const mockedNavigate = jest.fn();
 jest.mock("@react-navigation/native", () => {
