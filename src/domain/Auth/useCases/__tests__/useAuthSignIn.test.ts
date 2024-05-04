@@ -23,15 +23,20 @@ describe("useAuthSignIn", () => {
       .spyOn(authService, "signIn")
       .mockResolvedValueOnce(mockedAuthCredentials);
 
-    const { result } = renderHook(() => useAuthSignIn(), {
-      wrapper: AllTheProviders,
-    });
+    const mockedOnSuccess = jest.fn();
+    const { result } = renderHook(
+      () => useAuthSignIn({ onSuccess: mockedOnSuccess }),
+      {
+        wrapper: AllTheProviders,
+      },
+    );
 
     const { signIn } = result.current;
     signIn({ email: "will.peres@outlook.com", password: "12345" });
 
     await waitFor(() => expect(result.current.isSuccess).toBe(true));
     expect(mockedSaveCredentials).toHaveBeenCalledWith(mockedAuthCredentials);
+    expect(mockedOnSuccess).toHaveBeenCalledWith(mockedAuthCredentials);
   });
 
   it("calls the options.onError function with an error message if the sign in fails", async () => {

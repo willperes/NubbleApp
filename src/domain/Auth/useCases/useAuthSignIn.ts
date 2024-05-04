@@ -28,6 +28,9 @@ export function useAuthSignIn(
     retry: false,
     onSuccess: authCredentials => {
       saveCredentials(authCredentials);
+      if (options?.onSuccess) {
+        options.onSuccess(authCredentials);
+      }
     },
     onError: error => {
       if (options?.onError) {
