@@ -2,15 +2,30 @@ import React from "react";
 
 import { NavigationContainer } from "@react-navigation/native";
 import { ThemeProvider } from "@shopify/restyle";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { RenderOptions, render } from "@testing-library/react-native";
 
 import { theme } from "@theme";
 
+const queryClient = new QueryClient({
+  logger: {
+    log: console.log,
+    warn: console.log,
+    error: process.env.NODE_ENV === "test" ? () => {} : console.error,
+  },
+  defaultOptions: {
+    queries: { retry: false, cacheTime: Infinity },
+    mutations: { retry: false, cacheTime: Infinity },
+  },
+});
+
 export function AllTheProviders({ children }: React.PropsWithChildren) {
   return (
-    <ThemeProvider theme={theme}>
-      <NavigationContainer>{children}</NavigationContainer>
-    </ThemeProvider>
+    <QueryClientProvider client={queryClient}>
+      <ThemeProvider theme={theme}>
+        <NavigationContainer>{children}</NavigationContainer>
+      </ThemeProvider>
+    </QueryClientProvider>
   );
 }
 

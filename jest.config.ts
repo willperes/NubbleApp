@@ -1,7 +1,9 @@
 import type { Config } from "jest";
 
 const config: Config = {
-  collectCoverageFrom: ["src/{components,utils,hooks}/**/*.{js,jsx,ts,tsx}"],
+  collectCoverageFrom: [
+    "src/{components,utils,hooks,domain}/**/*.{js,jsx,ts,tsx}",
+  ],
   coveragePathIgnorePatterns: ["/node_modules", "index"],
   moduleDirectories: ["node_modules", "./src/test"],
   modulePathIgnorePatterns: [".*/mockedData/.*"],

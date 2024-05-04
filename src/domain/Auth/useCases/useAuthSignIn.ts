@@ -9,6 +9,7 @@ type SignInVariables = { email: string; password: string };
 
 interface UseAuthSignInResult {
   isLoading: boolean;
+  isSuccess: boolean;
   signIn: (variables: SignInVariables) => void;
 }
 
@@ -17,7 +18,7 @@ export function useAuthSignIn(
 ): UseAuthSignInResult {
   const { saveCredentials } = useAuthCredentials();
 
-  const { isLoading, mutate } = useMutation<
+  const { isLoading, isSuccess, mutate } = useMutation<
     AuthCredentials,
     Error,
     SignInVariables
@@ -40,6 +41,7 @@ export function useAuthSignIn(
 
   return {
     isLoading,
+    isSuccess,
     signIn,
   };
 }
