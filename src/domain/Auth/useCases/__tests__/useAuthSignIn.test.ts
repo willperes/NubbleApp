@@ -38,7 +38,7 @@ describe("useAuthSignIn", () => {
     const errorMessage = "This is an error message";
     jest
       .spyOn(authService, "signIn")
-      .mockImplementationOnce(() => Promise.reject(new Error(errorMessage)));
+      .mockRejectedValueOnce(new Error(errorMessage));
 
     const mockedOnError = jest.fn();
     const { result } = renderHook(
@@ -50,7 +50,8 @@ describe("useAuthSignIn", () => {
     signIn({ email: "will.peres@outlook.com", password: "12345" });
 
     await waitFor(() => {
-      expect(mockedOnError).toHaveBeenCalledWith(errorMessage);
+      expect(result.current.isError).toBe(true);
     });
+    expect(mockedOnError).toHaveBeenCalledWith(errorMessage);
   });
 });
