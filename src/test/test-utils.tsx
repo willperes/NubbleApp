@@ -2,7 +2,11 @@ import React from "react";
 
 import { NavigationContainer } from "@react-navigation/native";
 import { ThemeProvider } from "@shopify/restyle";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import {
+  QueryClient,
+  QueryClientConfig,
+  QueryClientProvider,
+} from "@tanstack/react-query";
 import {
   RenderHookOptions,
   RenderOptions,
@@ -12,18 +16,20 @@ import {
 
 import { theme } from "@theme";
 
-export function wrapperAllProviders() {
-  const queryClient = new QueryClient({
-    logger: {
-      log: console.log,
-      warn: console.log,
-      error: process.env.NODE_ENV === "test" ? () => {} : console.error,
-    },
-    defaultOptions: {
-      queries: { retry: false, cacheTime: Infinity },
-      mutations: { retry: false, cacheTime: Infinity },
-    },
-  });
+const queryClientConfig: QueryClientConfig = {
+  logger: {
+    log: console.log,
+    warn: console.log,
+    error: process.env.NODE_ENV === "test" ? () => {} : console.error,
+  },
+  defaultOptions: {
+    queries: { retry: false, cacheTime: Infinity },
+    mutations: { retry: false, cacheTime: Infinity },
+  },
+};
+
+export function wrapAllProviders() {
+  const queryClient = new QueryClient(queryClientConfig);
 
   return ({ children }: React.PropsWithChildren) => (
     <QueryClientProvider client={queryClient}>
@@ -38,7 +44,26 @@ function customRender<T = unknown>(
   component: React.ReactElement<T>,
   options?: Omit<RenderOptions, "wrapper">,
 ): ReturnType<typeof render> {
-  return render(component, { wrapper: wrapperAllProviders(), ...options });
+  return render(component, { wrapper: wrapAllProviders(), ...options });
+}
+
+export function wrapScreenProviders() {
+  const queryClient = new QueryClient(queryClientConfig);
+
+  return ({ children }: React.PropsWithChildren) => (
+    <QueryClientProvider client={queryClient}>
+      <ThemeProvider theme={theme}>
+        <NavigationContainer>{children}</NavigationContainer>
+      </ThemeProvider>
+    </QueryClientProvider>
+  );
+}
+
+export function renderScreen<T = unknown>(
+  component: React.ReactElement<T>,
+  options?: Omit<RenderOptions, "wrapper">,
+): ReturnType<typeof render> {
+  return render(component, { wrapper: wrapScreenProviders(), ...options });
 }
 
 function customRenderHook<Result, Props>(
@@ -47,7 +72,7 @@ function customRenderHook<Result, Props>(
 ) {
   return renderHook(renderCallback, {
     ...options,
-    wrapper: wrapperAllProviders(),
+    wrapper: wrapAllProviders(),
   });
 }
 
