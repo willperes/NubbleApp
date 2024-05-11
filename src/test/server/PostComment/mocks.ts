@@ -26,7 +26,7 @@ const postCommentAPI: PostCommentAPI = {
   meta: {},
 };
 
-const mockedPostCommentResponse: PageAPI<PostCommentAPI> = {
+const postCommentListAPI: PageAPI<PostCommentAPI> = {
   meta: {
     total: 1,
     per_page: 10,
@@ -43,5 +43,6 @@ const mockedPostCommentResponse: PageAPI<PostCommentAPI> = {
 
 export const mockedData = {
   POST_ID,
-  mockedPostCommentResponse,
+  postCommentListAPI,
+  postCommentAPI,
 };
