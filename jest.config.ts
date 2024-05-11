@@ -9,9 +9,7 @@ const config: Config = {
   modulePathIgnorePatterns: [".*/mockedData/.*"],
   preset: "react-native",
   setupFilesAfterEnv: ["./jest.setup.ts"],
-  transformIgnorePatterns: [
-    "node_modules/.pnpm/(?!@react-native|react-native)",
-  ],
+  transformIgnorePatterns: ["node_modules/(?!@react-native|react-native)"],
 };
 
 export default config;
