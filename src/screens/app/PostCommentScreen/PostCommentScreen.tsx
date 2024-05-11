@@ -1,7 +1,8 @@
 import React from "react";
 import { FlatList, ListRenderItemInfo } from "react-native";
 
-import { PostComment, usePostCommentList, useUser } from "@domain";
+import { PostComment, usePostCommentList } from "@domain";
+import { useAuthCredentials } from "@services";
 
 import { Screen } from "@components";
 import { useAppTheme } from "@hooks";
@@ -19,7 +20,7 @@ export function PostCommentScreen({
 }: AppScreenProps<"PostCommentScreen">) {
   const { postId, postAuthorId } = route.params;
 
-  const { id: userId } = useUser();
+  const { userId } = useAuthCredentials();
   const { list, isLoading, hasNextPage, fetchNextPage } =
     usePostCommentList(postId);
   const { spacing } = useAppTheme();

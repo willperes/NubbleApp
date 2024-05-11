@@ -9,7 +9,7 @@ import { Box, ProfileAvatar, Text } from "@components";
 type PostCommentItemProps = {
   postId: number;
   postComment: PostComment;
-  userId: number;
+  userId: number | null;
   postAuthorId: number;
 };
 
