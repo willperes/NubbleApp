@@ -2,7 +2,7 @@ import type { Config } from "jest";
 
 const config: Config = {
   collectCoverageFrom: [
-    "src/{components,utils,hooks,domain}/**/*.{js,jsx,ts,tsx}",
+    "src/{components,domain,hooks,screen,utils}/**/*.{js,jsx,ts,tsx}",
   ],
   coveragePathIgnorePatterns: ["/node_modules", "index"],
   moduleDirectories: ["node_modules", "./src/test"],

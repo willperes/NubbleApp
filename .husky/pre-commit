@@ -1,5 +1,5 @@
-pnpm run lint
+yarn lint
 
-pnpm tsc --noEmit
+yarn tsc --noEmit
 
-pnpm run test
+yarn test

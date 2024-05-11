@@ -2,7 +2,7 @@ import { PageAPI, PageParams, api } from "@api";
 
 import { PostCommentAPI } from "./postCommentTypes";
 
-const PATH = "user/post_comment";
+export const POST_COMMENT_PATH = "user/post_comment";
 
 type PostCommentResponseAPI = PageAPI<PostCommentAPI>;
 
@@ -10,7 +10,7 @@ async function getList(
   post_id: number,
   pageParams?: PageParams,
 ): Promise<PostCommentResponseAPI> {
-  const { data } = await api.get<PostCommentResponseAPI>(PATH, {
+  const { data } = await api.get<PostCommentResponseAPI>(POST_COMMENT_PATH, {
     params: {
       post_id,
       ...pageParams,
@@ -24,7 +24,7 @@ async function create(
   post_id: number,
   message: string,
 ): Promise<PostCommentAPI> {
-  const { data } = await api.post<PostCommentAPI>(PATH, {
+  const { data } = await api.post<PostCommentAPI>(POST_COMMENT_PATH, {
     post_id,
     message,
   });
@@ -34,7 +34,7 @@ async function create(
 
 async function remove(post_comment_id: number): Promise<{ message: string }> {
   const { data } = await api.delete<{ message: string }>(
-    `${PATH}/${post_comment_id}`,
+    `${POST_COMMENT_PATH}/${post_comment_id}`,
   );
 
   return data;
