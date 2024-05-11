@@ -17,8 +17,8 @@ afterAll(() => {
   server.close();
 });
 
-describe("integration: PostCommentScreen", () => {
-  it("should update the comment list when a new comment was created", async () => {
+describe("Integration: PostCommentScreen", () => {
+  test("Creating a new comment: the list should be updated when a new comment was created", async () => {
     renderScreen(
       <PostCommentScreen
         navigation={{} as any}
