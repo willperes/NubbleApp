@@ -1,17 +1,31 @@
 import { PageAPI } from "@api";
 import { PostCommentAPI } from "@domain";
 
+import { userMocks } from "../User/mocks";
+
 const POST_ID = 1;
 
+const authUserPostCommentAPI: PostCommentAPI = {
+  id: 1,
+  message: "Comentário da Maria",
+  user_id: 1,
+  post_id: POST_ID,
+  created_at: "2023-10-18T22:19:17.000+00:00",
+  updated_at: "2023-10-21T07:46:21.821+00:00",
+  user: userMocks.authUserAPI,
+
+  meta: {},
+};
+
 const postCommentAPI: PostCommentAPI = {
-  id: 97,
-  message: "Comentário aleatório do post",
-  user_id: 4,
+  id: 2,
+  message: "Comentário do Marcelo",
+  user_id: 2,
   post_id: POST_ID,
   created_at: "2023-10-18T22:19:17.000+00:00",
   updated_at: "2023-10-21T07:46:21.821+00:00",
   user: {
-    id: 4,
+    id: 2,
     first_name: "Marcelo",
     last_name: "Tavares",
     username: "celotavares",
@@ -28,7 +42,7 @@ const postCommentAPI: PostCommentAPI = {
 
 const postCommentListAPI: PageAPI<PostCommentAPI> = {
   meta: {
-    total: 1,
+    total: 2,
     per_page: 10,
     current_page: 1,
     last_page: 1,
@@ -38,11 +52,12 @@ const postCommentListAPI: PageAPI<PostCommentAPI> = {
     next_page_url: null,
     previous_page_url: null,
   },
-  data: [postCommentAPI],
+  data: [authUserPostCommentAPI, postCommentAPI],
 };
 
-export const mockedData = {
+export const postCommentMocks = {
   POST_ID,
   postCommentListAPI,
+  authUserPostCommentAPI,
   postCommentAPI,
 };

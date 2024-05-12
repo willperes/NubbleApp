@@ -32,7 +32,7 @@ describe("Integration: PostCommentScreen", () => {
 
     // Check if the list has only one comment
     const postCommentItems = await screen.findAllByTestId(/PostCommentItem-/i);
-    expect(postCommentItems.length).toBe(1);
+    expect(postCommentItems.length).toBe(2);
 
     // Find the comment input element and type the new comment
     const commentInputElement = screen.getByPlaceholderText(
@@ -52,6 +52,23 @@ describe("Integration: PostCommentScreen", () => {
     const updatedPostCommentItems = await screen.findAllByTestId(
       /PostCommentItem-/i,
     );
-    expect(updatedPostCommentItems.length).toBe(2);
+    expect(updatedPostCommentItems.length).toBe(3);
   });
+
+  // test("Deleting a comment: the list should be updated when a comment was deleted", async () => {
+  //   jest
+  //     .spyOn(authCredentialsStorage, "get")
+  //     .mockResolvedValue(authMocks.authCredentials);
+
+  //   renderScreen(
+  //     <PostCommentScreen
+  //       navigation={{} as any}
+  //       route={{
+  //         name: "PostCommentScreen",
+  //         key: "PostCommentScreen",
+  //         params: { postId: 1, postAuthorId: 1 },
+  //       }}
+  //     />,
+  //   );
+  // });
 });

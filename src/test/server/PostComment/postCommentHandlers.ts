@@ -2,11 +2,11 @@ import { BASE_URL, PageAPI } from "@api";
 import { POST_COMMENT_PATH, PostCommentAPI } from "@domain";
 import { http, HttpResponse } from "msw";
 
-import { mockedData } from "./mocks";
+import { postCommentMocks } from "./mocks";
 
 const URL = `${BASE_URL}${POST_COMMENT_PATH}`;
 
-let inMemoryResponse = { ...mockedData.postCommentListAPI };
+let inMemoryResponse = { ...postCommentMocks.postCommentListAPI };
 
 export const postCommentHandlers = [
   http.get(URL, async () => {
@@ -19,7 +19,7 @@ export const postCommentHandlers = [
       const body = await request.json();
 
       const newPostCommentAPI: PostCommentAPI = {
-        ...mockedData.postCommentAPI,
+        ...postCommentMocks.authUserPostCommentAPI,
         id: 999,
         post_id: body.post_id,
         message: body.message,
@@ -29,6 +29,19 @@ export const postCommentHandlers = [
       inMemoryResponse.meta.total += 1;
 
       return HttpResponse.json(newPostCommentAPI, { status: 201 });
+    },
+  ),
+  http.delete<{ postCommentId: string }>(
+    `${URL}/:postCommentId`,
+    async ({ params }) => {
+      const { postCommentId } = params;
+
+      inMemoryResponse.data = inMemoryResponse.data.filter(
+        item => item.id.toString() !== postCommentId,
+      );
+      inMemoryResponse.meta.total -= 1;
+
+      return HttpResponse.json({ message: "removed" }, { status: 200 });
     },
   ),
 ];
