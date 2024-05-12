@@ -1,6 +1,7 @@
 import React from "react";
 
 import { NavigationContainer } from "@react-navigation/native";
+import { AuthCredentialsProvider } from "@services";
 import { ThemeProvider } from "@shopify/restyle";
 import {
   QueryClient,
@@ -51,11 +52,13 @@ export function wrapScreenProviders() {
   const queryClient = new QueryClient(queryClientConfig);
 
   return ({ children }: React.PropsWithChildren) => (
-    <QueryClientProvider client={queryClient}>
-      <ThemeProvider theme={theme}>
-        <NavigationContainer>{children}</NavigationContainer>
-      </ThemeProvider>
-    </QueryClientProvider>
+    <AuthCredentialsProvider>
+      <QueryClientProvider client={queryClient}>
+        <ThemeProvider theme={theme}>
+          <NavigationContainer>{children}</NavigationContainer>
+        </ThemeProvider>
+      </QueryClientProvider>
+    </AuthCredentialsProvider>
   );
 }
 

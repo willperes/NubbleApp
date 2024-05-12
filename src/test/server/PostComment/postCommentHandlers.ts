@@ -1,12 +1,17 @@
 import { BASE_URL, PageAPI } from "@api";
 import { POST_COMMENT_PATH, PostCommentAPI } from "@domain";
+import { cloneDeep } from "lodash";
 import { http, HttpResponse } from "msw";
 
 import { postCommentMocks } from "./mocks";
 
 const URL = `${BASE_URL}${POST_COMMENT_PATH}`;
 
-let inMemoryResponse = { ...postCommentMocks.postCommentListAPI };
+let inMemoryResponse = cloneDeep(postCommentMocks.postCommentListAPI);
+
+export function resetPostCommentInMemoryResponse() {
+  inMemoryResponse = cloneDeep(postCommentMocks.postCommentListAPI);
+}
 
 export const postCommentHandlers = [
   http.get(URL, async () => {

@@ -2,8 +2,8 @@ import React from "react";
 
 import {
   AuthCredentialsProvider,
+  asyncStorage,
   initializeStorage,
-  mmkvStorage,
 } from "@services";
 import { ThemeProvider } from "@shopify/restyle";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -14,7 +14,7 @@ import { Router } from "@routes";
 import { theme } from "@theme";
 
 const queryClient = new QueryClient();
-initializeStorage(mmkvStorage);
+initializeStorage(asyncStorage);
 
 function App(): React.JSX.Element {
   return (
