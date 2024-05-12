@@ -30,7 +30,7 @@ describe("Integration: PostCommentScreen", () => {
       />,
     );
 
-    // Check if the list has only one comment
+    // Check if the list has two comments
     const postCommentItems = await screen.findAllByTestId(/PostCommentItem-/i);
     expect(postCommentItems.length).toBe(2);
 
@@ -48,7 +48,7 @@ describe("Integration: PostCommentScreen", () => {
     const newPostCommentElement = await screen.findByText(/Novo comentário/i);
     expect(newPostCommentElement).toBeTruthy();
 
-    // Check if the list has two comments
+    // Check if the list has three comments
     const updatedPostCommentItems = await screen.findAllByTestId(
       /PostCommentItem-/i,
     );
@@ -70,5 +70,9 @@ describe("Integration: PostCommentScreen", () => {
   //       }}
   //     />,
   //   );
+
+  //   // Check if the list has only one comment
+  //   const postCommentItems = await screen.findAllByTestId(/PostCommentItem-/i);
+  //   expect(postCommentItems.length).toBe(2);
   // });
 });
