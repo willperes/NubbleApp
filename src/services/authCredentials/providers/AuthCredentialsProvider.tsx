@@ -37,9 +37,6 @@ export function AuthCredentialsProvider({ children }: React.PropsWithChildren) {
   async function startAuthCredentials(): Promise<void> {
     setIsLoading(true);
 
-    // Simulate loading time on app start
-    await new Promise(resolve => setTimeout(() => resolve(null), 500));
-
     try {
       const credentials = await authCredentialsStorage.get();
       if (credentials) {

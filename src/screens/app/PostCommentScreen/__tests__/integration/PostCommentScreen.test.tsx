@@ -111,9 +111,6 @@ describe("Integration: PostCommentScreen", () => {
     );
     expect(commentToRemoveElement).toBeTruthy();
 
-    // TODO: remove this line after fixing the issue with the longPress event
-    await new Promise(resolve => setTimeout(resolve, 1000));
-
     // Long press the comment to open the deletion alert
     fireEvent(commentToRemoveElement, "longPress");
     expect(mockedAlert).toHaveBeenCalled();
