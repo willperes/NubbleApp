@@ -1,14 +1,19 @@
 import React, { useState } from "react";
+import { FlatList, ListRenderItemInfo } from "react-native";
 
-import { useUserList } from "@domain";
+import { User, useUserList } from "@domain";
 
-import { Icon, Screen, Text, TextInput } from "@components";
+import { Icon, ProfileUser, Screen, TextInput } from "@components";
 import { useDebounce } from "@hooks";
 
 export function SearchScreen() {
   const [search, setSearch] = useState("");
   const debouncedSearch = useDebounce(search);
   const { list } = useUserList(debouncedSearch);
+
+  function renderItem(items: ListRenderItemInfo<User>) {
+    return <ProfileUser user={items.item} />;
+  }
 
   return (
     <Screen
@@ -22,9 +27,11 @@ export function SearchScreen() {
         />
       }
     >
-      {list.map(user => (
-        <Text key={user.id}>{user.username}</Text>
-      ))}
+      <FlatList
+        data={list}
+        renderItem={renderItem}
+        keyExtractor={item => item.id.toString()}
+      />
     </Screen>
   );
 }
