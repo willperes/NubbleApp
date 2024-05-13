@@ -63,7 +63,7 @@ describe("Integration: PostCommentScreen", () => {
 
     // Find the create comment button and press it to create the new comment
     const createCommentButtonElement = screen.getByText("Enviar");
-    fireEvent.press(createCommentButtonElement);
+    fireEvent(createCommentButtonElement, "press");
 
     // Check if the new comment was created
     const newPostCommentElement = await screen.findByText(/Novo comentário/i);
