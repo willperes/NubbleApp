@@ -13,10 +13,10 @@ async function getList(
     page,
     per_page: 10,
   });
-  return {
-    data: postCommentPageAPI.data.map(postCommentAdapter.toPostComment),
-    meta: apiAdapter.toMetaDataPage(postCommentPageAPI.meta),
-  };
+  return apiAdapter.toPageModel(
+    postCommentPageAPI,
+    postCommentAdapter.toPostComment,
+  );
 }
 
 async function create(postId: number, message: string): Promise<PostComment> {
