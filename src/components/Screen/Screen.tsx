@@ -8,6 +8,7 @@ import { ScreenHeader, ScrollViewContainer, ViewContainer } from "./components";
 
 export interface ScreenProps extends BoxProps {
   children: React.ReactElement | React.ReactElement[];
+  HeaderComponent?: React.ReactNode;
   scrollable?: boolean;
   canGoBack?: boolean;
   title?: string;
@@ -15,6 +16,7 @@ export interface ScreenProps extends BoxProps {
 
 export function Screen({
   children,
+  HeaderComponent,
   scrollable,
   canGoBack = false,
   title,
@@ -43,7 +45,11 @@ export function Screen({
           {...boxProps}
         >
           {title || canGoBack ? (
-            <ScreenHeader canGoBack={canGoBack} title={title} />
+            <ScreenHeader
+              canGoBack={canGoBack}
+              title={title}
+              HeaderComponent={HeaderComponent}
+            />
           ) : null}
           {children}
         </Box>
