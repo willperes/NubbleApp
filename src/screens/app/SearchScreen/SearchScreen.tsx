@@ -1,9 +1,14 @@
 import React, { useState } from "react";
 
-import { Box, Icon, Screen, TextInput } from "@components";
+import { useUserList } from "@domain";
+
+import { Icon, Screen, Text, TextInput } from "@components";
+import { useDebounce } from "@hooks";
 
 export function SearchScreen() {
   const [search, setSearch] = useState("");
+  const debouncedSearch = useDebounce(search);
+  const { list } = useUserList(debouncedSearch);
 
   return (
     <Screen
@@ -17,7 +22,9 @@ export function SearchScreen() {
         />
       }
     >
-      <Box />
+      {list.map(user => (
+        <Text key={user.id}>{user.username}</Text>
+      ))}
     </Screen>
   );
 }
