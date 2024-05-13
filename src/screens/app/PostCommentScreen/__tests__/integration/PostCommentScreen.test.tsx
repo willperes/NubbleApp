@@ -9,9 +9,11 @@ import {
   server,
 } from "@test";
 import {
+  act,
   fireEvent,
   renderScreen,
   screen,
+  waitFor,
   waitForElementToBeRemoved,
 } from "test-utils";
 
@@ -20,6 +22,7 @@ import { PostCommentScreen } from "../../PostCommentScreen";
 describe("Integration: PostCommentScreen", () => {
   beforeAll(() => {
     server.listen();
+    jest.useFakeTimers();
   });
 
   afterEach(() => {
@@ -30,6 +33,7 @@ describe("Integration: PostCommentScreen", () => {
   afterAll(() => {
     server.close();
     jest.resetAllMocks();
+    jest.useRealTimers();
   });
 
   test("Creating a new comment: the list should be updated when a new comment was created", async () => {
@@ -129,5 +133,15 @@ describe("Integration: PostCommentScreen", () => {
       /PostCommentItem-/i,
     );
     expect(updatedPostCommentItems.length).toBe(1);
+
+    // Check that the Toast message informing the comment deletion was shown
+    await waitFor(() => expect(screen.getByTestId("Toast")).toBeTruthy());
+
+    // TODO: fix deprecated warning
+    // https://stackoverflow.com/questions/78438525/jest-tells-me-to-use-act-but-then-ide-indicates-it-is-deprecated-what-is-best
+    act(() => jest.runAllTimers());
+
+    // Check that the Toast message was removed
+    expect(screen.queryByTestId("Toast")).toBeNull();
   });
 });

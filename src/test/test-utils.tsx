@@ -1,7 +1,7 @@
 import React from "react";
 
 import { NavigationContainer } from "@react-navigation/native";
-import { AuthCredentialsProvider } from "@services";
+import { AuthCredentialsProvider, ToastProvider } from "@services";
 import { ThemeProvider } from "@shopify/restyle";
 import {
   QueryClient,
@@ -15,6 +15,7 @@ import {
   renderHook,
 } from "@testing-library/react-native";
 
+import { Toast } from "@components";
 import { theme } from "@theme";
 
 const queryClientConfig: QueryClientConfig = {
@@ -55,7 +56,10 @@ export function wrapScreenProviders() {
     <AuthCredentialsProvider>
       <QueryClientProvider client={queryClient}>
         <ThemeProvider theme={theme}>
-          <NavigationContainer>{children}</NavigationContainer>
+          <ToastProvider>
+            <NavigationContainer>{children}</NavigationContainer>
+            <Toast />
+          </ToastProvider>
         </ThemeProvider>
       </QueryClientProvider>
     </AuthCredentialsProvider>
