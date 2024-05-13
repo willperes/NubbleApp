@@ -7,10 +7,10 @@ import { postCommentMocks } from "./mocks";
 
 const URL = `${BASE_URL}${POST_COMMENT_PATH}`;
 
-let inMemoryResponse = cloneDeep(postCommentMocks.postCommentListAPI);
+let inMemoryResponse = cloneDeep(postCommentMocks.postCommentPageAPI);
 
 export function resetPostCommentInMemoryResponse() {
-  inMemoryResponse = cloneDeep(postCommentMocks.postCommentListAPI);
+  inMemoryResponse = cloneDeep(postCommentMocks.postCommentPageAPI);
 }
 
 export const postCommentHandlers = [

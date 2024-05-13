@@ -40,7 +40,7 @@ const postCommentAPI: PostCommentAPI = {
   meta: {},
 };
 
-const postCommentListAPI: PageAPI<PostCommentAPI> = {
+const postCommentPageAPI: PageAPI<PostCommentAPI> = {
   meta: {
     total: 2,
     per_page: 10,
@@ -57,7 +57,7 @@ const postCommentListAPI: PageAPI<PostCommentAPI> = {
 
 export const postCommentMocks = {
   POST_ID,
-  postCommentListAPI,
+  postCommentPageAPI,
   authUserPostCommentAPI,
   postCommentAPI,
 };

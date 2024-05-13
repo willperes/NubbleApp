@@ -10,7 +10,7 @@ const config: Config = {
   preset: "react-native",
   setupFilesAfterEnv: ["./jest.setup.ts"],
   transformIgnorePatterns: [
-    "node_modules/(?!((jest-)?react-native|@react-native(-community)?|react-native-safe-area-context)/)",
+    "node_modules/(?!((jest-)?react-native|@react-native(-community)?|react-native-safe-area-context|@react-navigation)/)",
   ],
 };
 
