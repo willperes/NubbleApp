@@ -12,8 +12,9 @@ import { Box, BoxProps } from "../Box/Box";
 import { $fontFamily, $fontSizes, Text } from "../Text/Text";
 
 export interface TextInputProps extends RNTextInputProps {
-  label: string;
+  label?: string;
   errorMessage?: string;
+  LeadingComponent?: React.ReactElement;
   TrailingComponent?: React.ReactElement;
   boxProps?: BoxProps;
 }
@@ -21,6 +22,7 @@ export interface TextInputProps extends RNTextInputProps {
 export function TextInput({
   label,
   errorMessage,
+  LeadingComponent,
   TrailingComponent,
   boxProps,
   ...rnTextInputProps
@@ -40,16 +42,19 @@ export function TextInput({
   }
 
   return (
-    <Box {...boxProps}>
+    <Box flexGrow={1} flexShrink={1} {...boxProps}>
       <Pressable onPress={focusInput}>
-        <Text preset={"paragraphMedium"} mb={"s4"}>
-          {label}
-        </Text>
+        {label && (
+          <Text preset={"paragraphMedium"} mb={"s4"}>
+            {label}
+          </Text>
+        )}
         <Box
           flexDirection={"row"}
           alignItems={"center"}
           {...$textInputContainer}
         >
+          {LeadingComponent && <Box mr={"s16"}>{LeadingComponent}</Box>}
           <RNTextInput
             autoCapitalize={"none"}
             ref={inputRef}
