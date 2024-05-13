@@ -17,6 +17,7 @@ This project contains everything from start to finish of the creation of a React
 
 - [About The App](#about-the-app)
 - [Screenshots](#screenshots)
+- [Demo](#demo)
 - [Technologies](#technologies)
 - [Getting Started](#getting-started)
 - [Step 1: Start the Metro Server](#step-1-start-the-metro-server)
@@ -33,6 +34,10 @@ Nubble App is a social network application where users can share photos with one
   <img src="https://i.imgur.com/rXAUBju.png" alt="Home screen containing other user's posts" height="500" />
   <img src="https://i.imgur.com/x9h7Z2D.png" alt="Comments screen showing the comments from an user's post" height="500" />
 </div>
+
+## Demo
+
+https://github.com/willperes/NubbleApp/assets/64440935/6cec38a0-00d6-4205-b958-52a3031e8f21
 
 ## Technologies
 
