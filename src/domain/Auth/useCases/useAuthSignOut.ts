@@ -1,4 +1,4 @@
-import { useAuthCredentials } from "@services";
+import { useAuthCredentials, useSearchHistoryService } from "@services";
 import { useMutation } from "@tanstack/react-query";
 
 import { authService } from "../authService";
@@ -10,21 +10,19 @@ interface UseAuthSignOutResult {
 
 export function useAuthSignOut(): UseAuthSignOutResult {
   const { removeCredentials } = useAuthCredentials();
+  const { clearUserList } = useSearchHistoryService();
 
   const { isLoading, mutate } = useMutation<string, unknown, void>({
     mutationFn: authService.signOut,
     retry: false,
-    onSuccess: () => {
+    onSettled: () => {
       removeCredentials();
+      clearUserList();
     },
   });
 
-  function signOut(): void {
-    mutate();
-  }
-
   return {
     isLoading,
-    signOut,
+    signOut: mutate,
   };
 }
