@@ -8,7 +8,7 @@ on:
 
 jobs:
   pull-request-checks:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v4
 
@@ -17,7 +17,7 @@ jobs:
         with:
           node-version: '18'
 
-      - name: Install Dependencies
+      - name: Install Packages
         run: yarn install
 
       - name: Run Lint
@@ -26,5 +26,5 @@ jobs:
       - name: Run TypeScript compiler
         run: yarn tsc --noEmit
 
-      - name: Run Tests
+      - name: Run test
         run: yarn test
