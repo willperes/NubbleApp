@@ -6,6 +6,8 @@ import { fireEvent, renderScreen, screen } from "test-utils";
 
 import { AppStack } from "@routes";
 
+jest.unmock("@react-navigation/native");
+
 describe("Integration: SearchScreen", () => {
   beforeAll(() => {
     server.listen();
@@ -36,5 +38,14 @@ describe("Integration: SearchScreen", () => {
 
     const userElement = await screen.findByText(userMocks.userAPI.username);
     expect(userElement).toBeTruthy();
+
+    // Click on the auth user to navigate to the ProfileScreen
+    fireEvent.press(authUserElement);
+
+    // Verify that the ProfileScreen was displayed with the auth user data
+    const authUserFullNameElement = await screen.findByText(
+      userMocks.authUserAPI.full_name,
+    );
+    expect(authUserFullNameElement).toBeTruthy();
   });
 });
