@@ -8,25 +8,25 @@ import { AppStack } from "@routes";
 
 jest.unmock("@react-navigation/native");
 
+beforeAll(() => {
+  server.listen();
+  jest.useFakeTimers();
+  jest
+    .spyOn(authCredentialsStorage, "get")
+    .mockResolvedValue(authMocks.authCredentials);
+});
+
+afterEach(() => {
+  server.resetHandlers();
+});
+
+afterAll(() => {
+  server.close();
+  jest.useRealTimers();
+  jest.resetAllMocks();
+});
+
 describe("Integration: SearchScreen", () => {
-  beforeAll(() => {
-    server.listen();
-    jest
-      .spyOn(authCredentialsStorage, "get")
-      .mockResolvedValue(authMocks.authCredentials);
-    jest.useFakeTimers();
-  });
-
-  afterEach(() => {
-    server.resetHandlers();
-  });
-
-  afterAll(() => {
-    server.close();
-    jest.resetAllMocks();
-    jest.useRealTimers();
-  });
-
   test("Search user flow", async () => {
     // 1) Render app stack with SearchScreen as initial route
     renderScreen(<AppStack initialRouteName={"SearchScreen"} />);
