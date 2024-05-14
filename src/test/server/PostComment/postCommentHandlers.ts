@@ -16,6 +16,7 @@ export function resetPostCommentInMemoryResponse() {
 export const postCommentHandlers = [
   http.get(URL, async () => {
     const response: PageAPI<PostCommentAPI> = inMemoryResponse;
+    console.log("http.get");
     return HttpResponse.json(response, { status: 200 });
   }),
   http.post<any, { post_id: number; message: string }>(
@@ -33,6 +34,7 @@ export const postCommentHandlers = [
       inMemoryResponse.data = [newPostCommentAPI, ...inMemoryResponse.data];
       inMemoryResponse.meta.total += 1;
 
+      console.log("http.post");
       return HttpResponse.json(newPostCommentAPI, { status: 201 });
     },
   ),
@@ -46,6 +48,7 @@ export const postCommentHandlers = [
       );
       inMemoryResponse.meta.total -= 1;
 
+      console.log("http.delete");
       return HttpResponse.json({ message: "removed" }, { status: 200 });
     },
   ),
