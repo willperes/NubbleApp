@@ -16,9 +16,9 @@ describe("<PasswordInput />", () => {
     render(<PasswordInput label={"Senha"} placeholder={"Digite sua senha"} />);
 
     const eyeOnIcon: IconProps["name"] = "eyeOn";
-    fireEvent.press(screen.getByTestId(eyeOnIcon));
+    fireEvent.press(screen.getByTestId(`Icon-${eyeOnIcon}`));
 
     const eyeOffIcon: IconProps["name"] = "eyeOff";
-    expect(screen.getByTestId(eyeOffIcon)).toBeTruthy();
+    expect(screen.getByTestId(`Icon-${eyeOffIcon}`)).toBeTruthy();
   });
 });
