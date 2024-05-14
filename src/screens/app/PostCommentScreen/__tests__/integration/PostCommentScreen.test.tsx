@@ -132,7 +132,6 @@ describe("Integration: PostCommentScreen", () => {
     const updatedPostCommentItems = await screen.findAllByTestId(
       /PostCommentItem-/i,
     );
-    console.log("updatedPostCommentItems", updatedPostCommentItems);
     expect(updatedPostCommentItems.length).toBe(1);
 
     // Check that the Toast message informing the comment deletion was shown
