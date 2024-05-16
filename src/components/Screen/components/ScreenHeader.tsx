@@ -18,6 +18,10 @@ export function ScreenHeader({
 }: ScreenHeaderProps) {
   const navigation = useNavigation();
 
+  if (!canGoBack && !title && !HeaderComponent) {
+    return null;
+  }
+
   const showBackLabel = !title && !HeaderComponent;
 
   return (
