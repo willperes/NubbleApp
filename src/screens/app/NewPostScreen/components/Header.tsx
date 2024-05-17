@@ -21,7 +21,7 @@ export function Header({ imageUri, imageWidth }: Props) {
           $imageBackgroundStyles,
         ]}
       >
-        <Button title={"Escolher essa"} mb="s24" />
+        <Button preset={"ghost"} title={"Escolher essa"} mb="s24" />
       </ImageBackground>
       <Box {...$galleryBoxStyles}>
         <Text preset={"headingSmall"} weight={"bold"}>
