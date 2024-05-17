@@ -48,6 +48,7 @@ export function Screen({
         >
           {title || canGoBack ? (
             <ScreenHeader
+              paddingHorizontal={noHorizontalPadding ? "s24" : undefined}
               canGoBack={canGoBack}
               title={title}
               HeaderComponent={HeaderComponent}

@@ -2,19 +2,28 @@ import React from "react";
 
 import { useNavigation } from "@react-navigation/native";
 
-import { Box, Icon, ScreenProps, Text, TouchableOpacityBox } from "@components";
+import {
+  Box,
+  BoxProps,
+  Icon,
+  ScreenProps,
+  Text,
+  TouchableOpacityBox,
+} from "@components";
 
 const ICON_SIZE = 20;
 
 type ScreenHeaderProps = Pick<
   ScreenProps,
   "canGoBack" | "title" | "HeaderComponent"
->;
+> &
+  BoxProps;
 
 export function ScreenHeader({
   canGoBack,
   title,
   HeaderComponent,
+  ...boxProps
 }: ScreenHeaderProps) {
   const navigation = useNavigation();
 
@@ -30,6 +39,7 @@ export function ScreenHeader({
       justifyContent={"space-between"}
       alignItems={"center"}
       mb={"s24"}
+      {...boxProps}
     >
       {canGoBack ? (
         <TouchableOpacityBox
