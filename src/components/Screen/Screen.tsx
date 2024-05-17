@@ -12,6 +12,7 @@ export interface ScreenProps extends BoxProps {
   scrollable?: boolean;
   canGoBack?: boolean;
   title?: string;
+  noHorizontalPadding?: boolean;
 }
 
 export function Screen({
@@ -21,6 +22,7 @@ export function Screen({
   canGoBack = false,
   title,
   style,
+  noHorizontalPadding = false,
   ...boxProps
 }: ScreenProps) {
   const { top, bottom } = useAppSafeArea();
@@ -34,7 +36,7 @@ export function Screen({
     >
       <Container backgroundColor={colors.background}>
         <Box
-          paddingHorizontal={"s24"}
+          paddingHorizontal={noHorizontalPadding ? undefined : "s24"}
           style={[
             {
               paddingTop: top,
@@ -46,6 +48,7 @@ export function Screen({
         >
           {title || canGoBack ? (
             <ScreenHeader
+              paddingHorizontal={noHorizontalPadding ? "s24" : undefined}
               canGoBack={canGoBack}
               title={title}
               HeaderComponent={HeaderComponent}
