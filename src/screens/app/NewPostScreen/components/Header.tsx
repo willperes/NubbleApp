@@ -1,6 +1,8 @@
 import React from "react";
 import { ImageBackground, ImageStyle } from "react-native";
 
+import { useNavigation } from "@react-navigation/native";
+
 import { Box, BoxProps, Button, Icon, Text } from "@components";
 
 interface Props {
@@ -9,6 +11,16 @@ interface Props {
 }
 
 export function Header({ imageUri, imageWidth }: Props) {
+  const navigation = useNavigation();
+
+  function navigateToPublishPostScreen() {
+    if (!imageUri) {
+      return;
+    }
+
+    navigation.navigate("PublishPostScreen", { imageUri });
+  }
+
   return (
     <Box>
       <ImageBackground
@@ -21,7 +33,14 @@ export function Header({ imageUri, imageWidth }: Props) {
           $imageBackgroundStyles,
         ]}
       >
-        <Button preset={"ghost"} title={"Escolher essa"} mb="s24" />
+        {imageUri && (
+          <Button
+            preset={"ghost"}
+            title={"Escolher essa"}
+            mb="s24"
+            onPress={navigateToPublishPostScreen}
+          />
+        )}
       </ImageBackground>
       <Box {...$galleryBoxStyles}>
         <Text preset={"headingSmall"} weight={"bold"}>
