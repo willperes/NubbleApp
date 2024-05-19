@@ -23,25 +23,26 @@ export function Header({ imageUri, imageWidth }: Props) {
 
   return (
     <Box>
-      <ImageBackground
-        source={{ uri: imageUri }}
-        style={[
-          {
-            height: imageWidth,
-            width: imageWidth,
-          },
-          $imageBackgroundStyles,
-        ]}
-      >
+      <Box height={imageWidth} width={imageWidth}>
         {imageUri && (
-          <Button
-            preset={"ghost"}
-            title={"Escolher essa"}
-            mb="s24"
-            onPress={navigateToPublishPostScreen}
-          />
+          <ImageBackground
+            source={{ uri: imageUri }}
+            style={[
+              {
+                flex: 1,
+              },
+              $imageBackgroundStyles,
+            ]}
+          >
+            <Button
+              preset={"ghost"}
+              title={"Escolher essa"}
+              mb="s24"
+              onPress={navigateToPublishPostScreen}
+            />
+          </ImageBackground>
         )}
-      </ImageBackground>
+      </Box>
       <Box {...$galleryBoxStyles}>
         <Text preset={"headingSmall"} weight={"bold"}>
           Sua galeria

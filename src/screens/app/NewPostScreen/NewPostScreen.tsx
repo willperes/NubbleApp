@@ -7,7 +7,7 @@ import {
   Pressable,
 } from "react-native";
 
-import { useCameraRoll } from "@services";
+import { useCameraRoll, usePermission } from "@services";
 
 import { Screen } from "@components";
 
@@ -21,7 +21,11 @@ export function NewPostScreen() {
   const flatListRef = useRef<FlatList>(null);
 
   const [selectedImage, setSelectedImage] = useState<string>();
-  const { photoList, fetchNextPage } = useCameraRoll(true, onSelectImage);
+  const permission = usePermission("photoLibrary");
+  const { photoList, fetchNextPage } = useCameraRoll(
+    permission.status === "granted",
+    onSelectImage,
+  );
 
   function onSelectImage(imageUri: string) {
     setSelectedImage(imageUri);
@@ -40,21 +44,26 @@ export function NewPostScreen() {
   }
 
   return (
-    <Screen canGoBack title={"Novo post"} noHorizontalPadding>
-      <>
-        <FlatList
-          ref={flatListRef}
-          data={photoList}
-          keyExtractor={item => item}
-          renderItem={renderItem}
-          numColumns={NUM_COLUMNS}
-          onEndReached={fetchNextPage}
-          onEndReachedThreshold={0.1}
-          ListHeaderComponent={
-            <Header imageUri={selectedImage} imageWidth={SCREEN_WIDTH} />
-          }
-        />
-      </>
+    <Screen
+      canGoBack
+      title={"Novo post"}
+      noHorizontalPadding
+      flex={1}
+      style={{ paddingBottom: 0 }}
+    >
+      <FlatList
+        ref={flatListRef}
+        data={photoList}
+        keyExtractor={item => item}
+        renderItem={renderItem}
+        numColumns={NUM_COLUMNS}
+        onEndReached={fetchNextPage}
+        onEndReachedThreshold={0.1}
+        ListHeaderComponent={
+          <Header imageUri={selectedImage} imageWidth={SCREEN_WIDTH} />
+        }
+        contentContainerStyle={{ flexGrow: 1 }}
+      />
     </Screen>
   );
 }
