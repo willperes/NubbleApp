@@ -4,7 +4,7 @@ import {
   PermissionName,
   PermissionService,
   PermissionStatus,
-} from "./permissionTypes";
+} from "../permissionTypes";
 
 async function check(name: PermissionName): Promise<PermissionStatus> {
   const permission = mapNameToPermission(name);
@@ -27,7 +27,6 @@ async function request(name: PermissionName): Promise<PermissionStatus> {
 }
 
 function mapNameToPermission(name: PermissionName): Permission | null {
-  // TODO: check if this is correct
   if (Platform.OS !== "android") {
     return null;
   }

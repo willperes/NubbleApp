@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import { permissionService } from "./permissionService";
+import { permissionService } from "./permissionService/permissionService";
 import { PermissionName, PermissionStatus } from "./permissionTypes";
 
 export function usePermission(permissionName: PermissionName) {

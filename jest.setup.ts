@@ -4,6 +4,8 @@ import mockSafeAreaContext from "react-native-safe-area-context/jest/mock";
 import { initializeStorage } from "./src/services/storage";
 import { inMemoryStorage } from "./src/services/storage/implementation/jest/inMemoryStorage";
 
+initializeStorage(inMemoryStorage);
+
 jest.mock("@react-navigation/native", () => {
   const originalModule = jest.requireActual("@react-navigation/native");
 
@@ -33,4 +35,12 @@ jest.mock("@react-native-camera-roll/camera-roll", () => ({
   },
 }));
 
-initializeStorage(inMemoryStorage);
+jest.mock(
+  "./src/services/permission/permissionService/permissionService",
+  () => ({
+    permissionService: {
+      request: jest.fn(),
+      check: jest.fn(),
+    },
+  }),
+);
