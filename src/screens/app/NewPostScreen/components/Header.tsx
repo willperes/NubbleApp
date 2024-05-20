@@ -21,6 +21,10 @@ export function Header({ imageUri, imageWidth }: Props) {
     navigation.navigate("PublishPostScreen", { imageUri });
   }
 
+  function navigateToCamera() {
+    navigation.navigate("CameraScreen");
+  }
+
   return (
     <Box>
       <Box height={imageWidth} width={imageWidth}>
@@ -47,7 +51,7 @@ export function Header({ imageUri, imageWidth }: Props) {
         <Text preset={"headingSmall"} weight={"bold"}>
           Sua galeria
         </Text>
-        <Icon name={"camera"} />
+        <Icon name={"camera"} onPress={navigateToCamera} />
       </Box>
     </Box>
   );

@@ -10,6 +10,7 @@ import { BellIcon } from "../../assets/icons/BellIcon";
 import { BellOnIcon } from "../../assets/icons/BellOnIcon";
 import { BookmarkFillIcon } from "../../assets/icons/BookmarkFillIcon";
 import { BookmarkIcon } from "../../assets/icons/BookmarkIcon";
+import { CameraClickIcon } from "../../assets/icons/CameraClickIcon";
 import { CameraIcon } from "../../assets/icons/CameraIcon";
 import { ChatIcon } from "../../assets/icons/ChatIcon";
 import { ChatOnIcon } from "../../assets/icons/ChatOnIcon";
@@ -74,6 +75,7 @@ const iconRegistry = {
   bellOn: BellOnIcon,
   bookmark: BookmarkIcon,
   bookmarkFill: BookmarkFillIcon,
+  cameraClick: CameraClickIcon,
   camera: CameraIcon,
   chat: ChatIcon,
   chatOn: ChatOnIcon,
