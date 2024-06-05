@@ -1,8 +1,13 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { Dimensions, StyleSheet } from "react-native";
 
 import { useIsFocused } from "@react-navigation/native";
-import { Camera, useCameraDevice } from "react-native-vision-camera";
+import {
+  Camera,
+  Templates,
+  useCameraDevice,
+  useCameraFormat,
+} from "react-native-vision-camera";
 
 import { Box, BoxProps, Icon, PermissionManager } from "@components";
 import { useAppSafeArea, useAppState } from "@hooks";
@@ -15,16 +20,40 @@ const CONTROL_DIFF = 30;
 
 export function CameraScreen({ navigation }: AppScreenProps<"CameraScreen">) {
   const { top, bottom } = useAppSafeArea();
+  const [isCameraReady, setIsCameraReady] = useState(false);
   const [flashOn, setFlashOn] = useState(false);
-  const device = useCameraDevice("back");
+
+  const camera = useRef<Camera>(null);
+  const device = useCameraDevice("back", {
+    physicalDevices: [
+      "ultra-wide-angle-camera",
+      "wide-angle-camera",
+      "telephoto-camera",
+    ],
+  });
+  const format = useCameraFormat(device, Templates.Instagram);
+
+  const isFocused = useIsFocused();
+  const appState = useAppState();
+  const isActive = isFocused && appState === "active";
 
   function toggleFlash() {
     setFlashOn(prev => !prev);
   }
 
-  const isFocused = useIsFocused();
-  const appState = useAppState();
-  const isActive = isFocused && appState === "active";
+  async function takePhoto() {
+    if (camera.current?.takePhoto) {
+      console.log(1);
+      const photoFile = await camera.current.takePhoto({
+        flash: flashOn ? "on" : "off",
+      });
+
+      console.log(2);
+      navigation.navigate("PublishPostScreen", {
+        imageUri: `file://${photoFile.path}`,
+      });
+    }
+  }
 
   return (
     <PermissionManager
@@ -37,9 +66,13 @@ export function CameraScreen({ navigation }: AppScreenProps<"CameraScreen">) {
         <Box backgroundColor={"grayWhite"} style={StyleSheet.absoluteFill} />
         {device != null && (
           <Camera
+            ref={camera}
             style={StyleSheet.absoluteFill}
             device={device}
+            format={format}
             isActive={isActive}
+            photo={true}
+            onInitialized={() => setIsCameraReady(true)}
           />
         )}
         <Box flex={1} justifyContent={"space-between"}>
@@ -59,7 +92,13 @@ export function CameraScreen({ navigation }: AppScreenProps<"CameraScreen">) {
             <Box height={20} width={20} />
           </Box>
           <Box {...$controlAreaBottom} style={{ paddingBottom: bottom }}>
-            <Icon name={"cameraClick"} color={"grayWhite"} />
+            {isCameraReady && (
+              <Icon
+                name={"cameraClick"}
+                color={"grayWhite"}
+                onPress={takePhoto}
+              />
+            )}
           </Box>
         </Box>
       </Box>
