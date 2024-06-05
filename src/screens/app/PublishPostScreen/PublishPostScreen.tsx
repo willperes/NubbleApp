@@ -1,17 +1,32 @@
 import React, { useState } from "react";
 import { Dimensions, Image } from "react-native";
 
+import { usePostCreate } from "@domain";
+import { useToastService } from "@services";
+
 import { Box, Button, Screen, Text, TextInput } from "@components";
 import { AppScreenProps } from "@routes";
 
 const IMAGE_WIDTH = Dimensions.get("screen").width / 2;
 
 export function PublishPostScreen({
+  navigation,
   route,
 }: AppScreenProps<"PublishPostScreen">) {
   const { imageUri } = route.params;
 
+  const { showToast } = useToastService();
+  const { createPost, isLoading } = usePostCreate({
+    onSuccess: () => {
+      navigation.navigate("AppTabNavigator", { screen: "HomeScreen" });
+      showToast({ message: "Foto publicada", type: "success" });
+    },
+  });
   const [description, setDescription] = useState("");
+
+  function handlePublishPost() {
+    createPost({ description, imageUri });
+  }
 
   return (
     <Screen canGoBack title={"Novo post"}>
@@ -36,7 +51,13 @@ export function PublishPostScreen({
         containerProps={{ borderWidth: 0 }}
       />
 
-      <Button title={"Publicar post"} mt={"s56"} />
+      <Button
+        disabled={!description}
+        loading={isLoading}
+        title={"Publicar post"}
+        mt={"s56"}
+        onPress={handlePublishPost}
+      />
     </Screen>
   );
 }
