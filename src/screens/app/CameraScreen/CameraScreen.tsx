@@ -43,12 +43,10 @@ export function CameraScreen({ navigation }: AppScreenProps<"CameraScreen">) {
 
   async function takePhoto() {
     if (camera.current?.takePhoto) {
-      console.log(1);
       const photoFile = await camera.current.takePhoto({
         flash: flashOn ? "on" : "off",
       });
 
-      console.log(2);
       navigation.navigate("PublishPostScreen", {
         imageUri: `file://${photoFile.path}`,
       });
