@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Dimensions, StyleSheet } from "react-native";
 
-import { Box, BoxProps, Icon } from "@components";
+import { Box, BoxProps, Icon, PermissionManager } from "@components";
 import { useAppSafeArea } from "@hooks";
 import { AppScreenProps } from "@routes";
 
@@ -19,29 +19,36 @@ export function CameraScreen({ navigation }: AppScreenProps<"CameraScreen">) {
   }
 
   return (
-    <Box flex={1}>
-      <Box backgroundColor={"grayWhite"} style={StyleSheet.absoluteFill} />
-      <Box flex={1} justifyContent={"space-between"}>
-        <Box {...$controlAreaTop} style={{ paddingTop: top }}>
-          <Icon
-            name={"arrowLeft"}
-            size={20}
-            color={"grayWhite"}
-            onPress={navigation.goBack}
-          />
-          <Icon
-            name={flashOn ? "flashOn" : "flashOff"}
-            size={20}
-            color={"grayWhite"}
-            onPress={toggleFlash}
-          />
-          <Box height={20} width={20} />
-        </Box>
-        <Box {...$controlAreaBottom} style={{ paddingBottom: bottom }}>
-          <Icon name={"cameraClick"} color={"grayWhite"} />
+    <PermissionManager
+      permissionName={"camera"}
+      description={
+        "Permita o Nubble acessar sua câmera para criar um novo post."
+      }
+    >
+      <Box flex={1}>
+        <Box backgroundColor={"grayWhite"} style={StyleSheet.absoluteFill} />
+        <Box flex={1} justifyContent={"space-between"}>
+          <Box {...$controlAreaTop} style={{ paddingTop: top }}>
+            <Icon
+              name={"arrowLeft"}
+              size={20}
+              color={"grayWhite"}
+              onPress={navigation.goBack}
+            />
+            <Icon
+              name={flashOn ? "flashOn" : "flashOff"}
+              size={20}
+              color={"grayWhite"}
+              onPress={toggleFlash}
+            />
+            <Box height={20} width={20} />
+          </Box>
+          <Box {...$controlAreaBottom} style={{ paddingBottom: bottom }}>
+            <Icon name={"cameraClick"} color={"grayWhite"} />
+          </Box>
         </Box>
       </Box>
-    </Box>
+    </PermissionManager>
   );
 }
 
