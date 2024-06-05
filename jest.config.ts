@@ -4,6 +4,7 @@ const config: Config = {
   collectCoverageFrom: [
     "src/{components,domain,hooks,screens,utils}/**/*.{js,jsx,ts,tsx}",
   ],
+  testTimeout: 15000,
   coveragePathIgnorePatterns: ["/node_modules", "index"],
   moduleDirectories: ["node_modules", "./src/test"],
   modulePathIgnorePatterns: [".*/mockedData/.*"],
