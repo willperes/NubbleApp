@@ -53,7 +53,11 @@ export function TextInput({
             {label}
           </Text>
         )}
-        <Box {...$textInputContainer} {...containerProps}>
+        <Box
+          {...$textInputContainer}
+          {...containerProps}
+          backgroundColor={"grayWhite"}
+        >
           {LeadingComponent && <Box mr={"s16"}>{LeadingComponent}</Box>}
           <RNTextInput
             autoCapitalize={"none"}
