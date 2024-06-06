@@ -18,8 +18,8 @@ export function PublishPostScreen({
   const { showToast } = useToastService();
   const { createPost, isLoading } = usePostCreate({
     onSuccess: () => {
-      navigation.navigate("AppTabNavigator", { screen: "HomeScreen" });
       showToast({ message: "Foto publicada", type: "success" });
+      navigation.navigate("AppTabNavigator", { screen: "HomeScreen" });
     },
   });
   const [description, setDescription] = useState("");
@@ -52,7 +52,7 @@ export function PublishPostScreen({
       />
 
       <Button
-        disabled={!description}
+        disabled={!description || isLoading}
         loading={isLoading}
         title={"Publicar post"}
         mt={"s56"}
