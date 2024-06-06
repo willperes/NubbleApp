@@ -7,9 +7,13 @@ import {
   Pressable,
 } from "react-native";
 
-import { useCameraRoll } from "@services";
+import {
+  PermissionName,
+  useMultimediaGetPhotos,
+  usePermission,
+} from "@services";
 
-import { Screen } from "@components";
+import { PermissionManager, Screen } from "@components";
 
 import { Header } from "./components/Header";
 
@@ -17,11 +21,17 @@ const SCREEN_WIDTH = Dimensions.get("screen").width;
 const NUM_COLUMNS = 4;
 const ITEM_SIZE = SCREEN_WIDTH / NUM_COLUMNS;
 
+const PERMISSION_NAME: PermissionName = "photoLibrary";
+
 export function NewPostScreen() {
   const flatListRef = useRef<FlatList>(null);
 
   const [selectedImage, setSelectedImage] = useState<string>();
-  const { photoList, fetchNextPage } = useCameraRoll(true, onSelectImage);
+  const permission = usePermission(PERMISSION_NAME);
+  const { photoList, fetchNextPage } = useMultimediaGetPhotos(
+    permission.status === "granted",
+    onSelectImage,
+  );
 
   function onSelectImage(imageUri: string) {
     setSelectedImage(imageUri);
@@ -40,8 +50,19 @@ export function NewPostScreen() {
   }
 
   return (
-    <Screen canGoBack title={"Novo post"} noHorizontalPadding>
-      <>
+    <PermissionManager
+      permissionName={PERMISSION_NAME}
+      description={
+        "Permita o Nubble acessar suas fotos da galeria para criar um novo post."
+      }
+    >
+      <Screen
+        canGoBack
+        title={"Novo post"}
+        noHorizontalPadding
+        flex={1}
+        style={{ paddingBottom: 0 }}
+      >
         <FlatList
           ref={flatListRef}
           data={photoList}
@@ -53,8 +74,9 @@ export function NewPostScreen() {
           ListHeaderComponent={
             <Header imageUri={selectedImage} imageWidth={SCREEN_WIDTH} />
           }
+          contentContainerStyle={{ flexGrow: 1 }}
         />
-      </>
-    </Screen>
+      </Screen>
+    </PermissionManager>
   );
 }

@@ -17,6 +17,7 @@ export interface TextInputProps extends RNTextInputProps {
   LeadingComponent?: React.ReactElement;
   TrailingComponent?: React.ReactElement;
   boxProps?: BoxProps;
+  containerProps?: BoxProps;
 }
 
 export function TextInput({
@@ -25,12 +26,15 @@ export function TextInput({
   LeadingComponent,
   TrailingComponent,
   boxProps,
+  containerProps,
   ...rnTextInputProps
 }: TextInputProps) {
   const { colors } = useAppTheme();
   const inputRef = useRef<RNTextInput>(null);
 
   const $textInputContainer: BoxProps = {
+    flexDirection: "row",
+    alignItems: "center",
     borderWidth: errorMessage ? 2 : 1,
     borderColor: errorMessage ? "error" : "gray4",
     borderRadius: "s12",
@@ -49,11 +53,7 @@ export function TextInput({
             {label}
           </Text>
         )}
-        <Box
-          flexDirection={"row"}
-          alignItems={"center"}
-          {...$textInputContainer}
-        >
+        <Box {...$textInputContainer} {...containerProps}>
           {LeadingComponent && <Box mr={"s16"}>{LeadingComponent}</Box>}
           <RNTextInput
             autoCapitalize={"none"}

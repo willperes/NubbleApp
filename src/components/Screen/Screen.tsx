@@ -7,7 +7,6 @@ import { useAppSafeArea, useAppTheme } from "@hooks";
 import { ScreenHeader, ScrollViewContainer, ViewContainer } from "./components";
 
 export interface ScreenProps extends BoxProps {
-  children: React.ReactElement | React.ReactElement[];
   HeaderComponent?: React.ReactNode;
   scrollable?: boolean;
   canGoBack?: boolean;
@@ -24,7 +23,7 @@ export function Screen({
   style,
   noHorizontalPadding = false,
   ...boxProps
-}: ScreenProps) {
+}: React.PropsWithChildren<ScreenProps>) {
   const { top, bottom } = useAppSafeArea();
   const { colors } = useAppTheme();
 
