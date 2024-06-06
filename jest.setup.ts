@@ -44,3 +44,7 @@ jest.mock(
     },
   }),
 );
+
+jest.mock("expo-image-manipulator", () => ({
+  manipulateAsync: jest.fn(),
+}));
