@@ -24,7 +24,7 @@ export function PostBottom({ author, text, commentCount, id }: PostBottom) {
       <Text preset={"paragraphMedium"} weight={"bold"}>
         {author.userName}
       </Text>
-      <Text preset={"paragraphMedium"} color={"gray1"}>
+      <Text preset={"paragraphMedium"} color={"paragraph"}>
         {text}
       </Text>
 
