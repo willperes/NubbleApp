@@ -5,6 +5,7 @@ export * from "./Form";
 export * from "./Icon/Icon";
 export * from "./PasswordInput/PasswordInput";
 export * from "./Screen/Screen";
+export * from "./Separator/Separator";
 export * from "./Text/Text";
 export * from "./TextInput/TextInput";
 export * from "./TextMessage/TextMessage";
