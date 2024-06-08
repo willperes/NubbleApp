@@ -10,7 +10,7 @@ export type MenuItemProps = {
 export function MenuItem({ label, onPress }: MenuItemProps) {
   return (
     <PressableBox {...$boxStyle} onPress={onPress}>
-      <Text>{label}</Text>
+      <Text weight={"semiBold"}>{label}</Text>
       <Icon name={"chevronRight"} />
     </PressableBox>
   );

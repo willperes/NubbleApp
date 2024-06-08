@@ -70,8 +70,8 @@ export const $fontFamily: Record<FontWeight, Record<FontStyle, string>> = {
     italic: "Satoshi-BoldItalic",
   },
   semiBold: {
-    normal: "Satoshi-Bold",
-    italic: "Satoshi-BoldItalic",
+    normal: "Satoshi-Medium",
+    italic: "Satoshi-MediumItalic",
   },
   regular: {
     normal: "Satoshi-Regular",
