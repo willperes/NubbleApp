@@ -26,7 +26,7 @@ export function RadioButtonSelector<ItemT extends ItemTConstraint>({
   return (
     <Box>
       {items.map((item, index) => (
-        <Box>
+        <Box key={`${item[labelKey]}-${index}`}>
           <RadioButtonItem
             label={item[labelKey]}
             description={item[descriptionKey]}
