@@ -10,12 +10,14 @@ import {
   SearchScreen,
   PublishPostScreen,
   CameraScreen,
+  DarkModeScreen,
 } from "@screens";
 
 import { AppTabBottomTabParamList, AppTabNavigator } from "./AppTabNavigator";
 export type AppStackParamList = {
   AppTabNavigator: NavigatorScreenParams<AppTabBottomTabParamList>;
   CameraScreen: undefined;
+  DarkModeScreen: undefined;
   PostCommentScreen: { postId: number; postAuthorId: number };
   ProfileScreen: { userId: number };
   PublishPostScreen: { imageUri: string };
@@ -39,6 +41,7 @@ export function AppStack({ initialRouteName = "AppTabNavigator" }: Props) {
     >
       <Stack.Screen name={"AppTabNavigator"} component={AppTabNavigator} />
       <Stack.Screen name={"CameraScreen"} component={CameraScreen} />
+      <Stack.Screen name={"DarkModeScreen"} component={DarkModeScreen} />
       <Stack.Screen name={"PostCommentScreen"} component={PostCommentScreen} />
       <Stack.Screen name={"ProfileScreen"} component={ProfileScreen} />
       <Stack.Screen name={"PublishPostScreen"} component={PublishPostScreen} />
