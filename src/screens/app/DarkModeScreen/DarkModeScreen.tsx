@@ -1,11 +1,25 @@
 import React from "react";
 
-import { Screen, Text } from "@components";
+import {
+  RadioButtonSelector,
+  RadioButtonSelectorProps,
+  Screen,
+} from "@components";
+
+const selectorItems: RadioButtonSelectorProps["items"] = [
+  { label: "Ativado" },
+  { label: "Desativado" },
+  {
+    label: "Padrão do sistema",
+    description:
+      "A aparência será a mesma que você configurou no seu dispositivo",
+  },
+];
 
 export function DarkModeScreen() {
   return (
     <Screen canGoBack title={"Modo escuro"}>
-      <Text>Dark Mode</Text>
+      <RadioButtonSelector items={selectorItems} />
     </Screen>
   );
 }
