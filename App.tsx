@@ -1,6 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 
-import { AuthCredentialsProvider, useAppColorScheme } from "@services";
+import {
+  AuthCredentialsProvider,
+  settingsService,
+  useAppColorScheme,
+} from "@services";
 import { ThemeProvider } from "@shopify/restyle";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { SafeAreaProvider } from "react-native-safe-area-context";
@@ -18,6 +22,10 @@ initializeStorage(mmkvStorage);
 function App(): React.JSX.Element {
   const appColorScheme = useAppColorScheme();
   useAppColorSchemeListener();
+
+  useEffect(() => {
+    settingsService.handleStatusBar(appColorScheme);
+  }, [appColorScheme]);
 
   return (
     <AuthCredentialsProvider>
