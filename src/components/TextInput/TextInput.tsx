@@ -7,6 +7,7 @@ import {
 } from "react-native";
 
 import { useAppTheme } from "@hooks";
+import { colors } from "@theme";
 
 import { Box, BoxProps } from "../Box/Box";
 import { $fontFamily, $fontSizes, Text } from "../Text/Text";
@@ -53,7 +54,11 @@ export function TextInput({
             {label}
           </Text>
         )}
-        <Box {...$textInputContainer} {...containerProps}>
+        <Box
+          {...$textInputContainer}
+          {...containerProps}
+          backgroundColor={"grayWhite"}
+        >
           {LeadingComponent && <Box mr={"s16"}>{LeadingComponent}</Box>}
           <RNTextInput
             autoCapitalize={"none"}
@@ -83,6 +88,7 @@ export const $textInput: TextStyle = {
   padding: 0,
   flexGrow: 1,
   flexShrink: 1,
+  color: colors.palette.grayBlack,
   fontFamily: $fontFamily.regular.normal,
   ...$fontSizes.paragraphMedium,
 };

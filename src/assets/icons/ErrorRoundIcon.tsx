@@ -2,13 +2,13 @@ import React from "react";
 
 import { Circle, Path, Svg } from "react-native-svg";
 
-import { palette } from "@theme";
+import { colors } from "@theme";
 
 import { IconBaseProps } from "../../components/Icon/Icon";
 
 export function ErrorRoundIcon({
   size = 48,
-  color = palette.redError,
+  color = colors.palette.redError,
 }: IconBaseProps) {
   return (
     <Svg width={size} height={size} viewBox="0 0 48 48" fill="none">
