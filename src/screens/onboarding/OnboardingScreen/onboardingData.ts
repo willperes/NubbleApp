@@ -2,17 +2,33 @@ import { ImageProps } from "react-native";
 
 import { images } from "@assets";
 
+export type OnboardingPageItemTitle = {
+  text: string;
+  highlighted: boolean;
+};
+
 export type OnboardingPageItem = {
-  title: string;
+  title: OnboardingPageItemTitle[];
   subtitle: string;
   image: {
     light: ImageProps["source"];
     dark: ImageProps["source"];
   };
+  index: number;
+  total: number;
+  isLast: boolean;
 };
 
-const page1: OnboardingPageItem = {
-  title: "Uma rede social de conexões reais",
+type OnboardingPageItemWithoutMeta = Omit<
+  OnboardingPageItem,
+  "index" | "total" | "isLast"
+>;
+
+const page1: OnboardingPageItemWithoutMeta = {
+  title: [
+    { text: "Uma rede social de", highlighted: false },
+    { text: " conexões reais", highlighted: true },
+  ],
   subtitle:
     "Fique por dentro do que acontece com as pessoas que você mais gosta",
   image: {
@@ -21,8 +37,12 @@ const page1: OnboardingPageItem = {
   },
 };
 
-const page2: OnboardingPageItem = {
-  title: "Compartilhe suas histórias com seus amigos próximos",
+const page2: OnboardingPageItemWithoutMeta = {
+  title: [
+    { text: "Compartilhe suas", highlighted: false },
+    { text: " histórias ", highlighted: true },
+    { text: "com seus amigos próximos", highlighted: false },
+  ],
   subtitle: "Tenha sua linha do tempo personalizada",
   image: {
     light: images.onboardingLight2,
@@ -30,8 +50,11 @@ const page2: OnboardingPageItem = {
   },
 };
 
-const page3: OnboardingPageItem = {
-  title: "Interaja em tempo real com as pessoas",
+const page3: OnboardingPageItemWithoutMeta = {
+  title: [
+    { text: "Interaja", highlighted: true },
+    { text: " em tempo real com as pessoas", highlighted: false },
+  ],
   subtitle: "Curta, comente e favorite os conteúdos que você mais gostar",
   image: {
     light: images.onboardingLight3,
@@ -39,4 +62,11 @@ const page3: OnboardingPageItem = {
   },
 };
 
-export const onboardingPages: OnboardingPageItem[] = [page1, page2, page3];
+export const onboardingPages: OnboardingPageItem[] = [page1, page2, page3].map(
+  (pageItem, index, arr) => ({
+    ...pageItem,
+    index,
+    total: arr.length,
+    isLast: index === arr.length - 1,
+  }),
+);

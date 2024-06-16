@@ -37,12 +37,12 @@ export function OnboardingScreen() {
   }
 
   return (
-    <Box flex={1}>
+    <Box flex={1} backgroundColor={"background"}>
       <FlatList
         ref={flatListRef}
         data={onboardingPages}
         renderItem={renderItem}
-        keyExtractor={({ title }) => title}
+        keyExtractor={(_, index) => `onboarding-page-${index.toString()}`}
         horizontal
         showsHorizontalScrollIndicator={false}
         scrollEnabled={false}

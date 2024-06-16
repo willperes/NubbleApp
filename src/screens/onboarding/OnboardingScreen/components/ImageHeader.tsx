@@ -17,7 +17,7 @@ export function ImageHeader({ image }: ImageHeader) {
   return (
     <Image
       source={appColorScheme === "dark" ? image.dark : image.light}
-      style={{ width: SCREEN_WIDTH }}
+      style={{ width: SCREEN_WIDTH, height: "100%" }}
     />
   );
 }
